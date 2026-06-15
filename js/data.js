@@ -354,7 +354,9 @@ const projects = [
         "id": "displaced",
         "assetFolder": "Displaced",
         "type": "project",
-        "youtubeUrls": [],
+        "youtubeUrls": [
+            "https://www.youtube.com/watch?v=vBqQRW3jLbg"
+        ],
         "detailsEnabled": true,
         "title": "Displaced",
         "description": "A First Person Multiplayer FPS, fight across two dimensions to conquer reality, and survive the oncoming apocalypse.",
@@ -438,7 +440,14 @@ const projects = [
                 },
                 "media": []
             }
-        }
+        },
+        "mediaOrder": [
+            "image:assets/Displaced/displayPhoto_1.png",
+            "youtube:vBqQRW3jLbg",
+            "image:assets/Displaced/displayPhoto_2.png",
+            "image:assets/Displaced/displayPhoto_3.png",
+            "image:assets/Displaced/displayPhoto_4.png"
+        ]
     }
 ];
 
