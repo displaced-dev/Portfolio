@@ -1,4 +1,4 @@
-// Renders the page sections and the project modal (Overview + In-Depth).
+// Renders the page sections and the project modal (Overview + custom tabs).
 
 let modal = null;
 
@@ -252,6 +252,9 @@ function createProjectCard(project, order) {
 }
 
 /* ---------- Modal ---------- */
+// The popup has an Overview tab, then one tab per custom section from the
+// admin tool (e.g. Maps, Sound), then an optional Summary tab. Each custom
+// tab can hold several pages and appears as a clickable Key Feature.
 
 function initializeModal() {
     modal = document.getElementById('projectModal');
@@ -260,13 +263,25 @@ function initializeModal() {
     modal.querySelector('.close').addEventListener('click', closeProjectModal);
     window.addEventListener('click', (e) => { if (e.target === modal) closeProjectModal(); });
 
-    modal.querySelector('.modal-header').addEventListener('click', (e) => {
-        if (e.target.classList.contains('tab-btn')) switchModalTab(e.target.dataset.tab);
+    document.getElementById('modalTabs').addEventListener('click', (e) => {
+        const btn = e.target.closest('.tab-btn');
+        if (btn) switchModalTab(btn.dataset.tab);
     });
 
-    document.getElementById('details').addEventListener('click', (e) => {
-        const btn = e.target.closest('.page-btn');
-        if (btn) showDetailsPage(parseInt(btn.dataset.page, 10));
+    document.getElementById('modalBody').addEventListener('click', (e) => {
+        const feature = e.target.closest('.feature-link');
+        if (feature) {
+            switchModalTab(feature.dataset.tab);
+            return;
+        }
+        const pageBtn = e.target.closest('.page-btn');
+        if (pageBtn) showTabPage(pageBtn.closest('.tab-content'), parseInt(pageBtn.dataset.page, 10));
+    });
+
+    // Before/after sliders: the invisible range input drives the split.
+    document.getElementById('modalBody').addEventListener('input', (e) => {
+        if (!e.target.classList.contains('compare-range')) return;
+        e.target.closest('.compare-slider').style.setProperty('--split', `${e.target.value}%`);
     });
 
     document.addEventListener('keydown', (e) => {
@@ -274,33 +289,86 @@ function initializeModal() {
     });
 }
 
+// Custom tabs to show for a project. detailsEnabled === false hides them all.
+function customTabs(project) {
+    if (project.detailsEnabled === false) return [];
+    const d = project.details || {};
+    let sections = Array.isArray(d.sections) ? d.sections : [];
+
+    // data.js written before custom tabs existed: show the old pages as one tab.
+    if (!sections.length && Array.isArray(d.pages) && d.pages.length) {
+        sections = [{ title: 'In-Depth', pages: d.pages }];
+    }
+
+    return sections
+        .filter(s => (s.title && s.title.trim()) || (s.pages && s.pages.length))
+        .map((s, i) => {
+            const title = (s.title || '').trim() || 'Untitled';
+            return {
+                id: `tab-${i}`,
+                title,
+                feature: (s.feature || '').trim() || title,
+                pages: s.pages || []
+            };
+        });
+}
+
+function summaryHtml(project) {
+    if (project.detailsEnabled === false) return '';
+    const d = project.details || {};
+    const groups = [
+        ['Challenges', d.challenges],
+        ['Solutions', d.solutions],
+        ['Lessons Learned', d.lessons]
+    ].filter(([, items]) => items && items.length);
+
+    return groups.map(([heading, items]) => `
+        <div class="details-section">
+            <h4>${heading}</h4>
+            <ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>`).join('');
+}
+
 function openProjectModal(project) {
     if (!modal) return;
+
+    const sections = customTabs(project);
+    const summary = summaryHtml(project);
+    const tabs = [
+        { id: 'overview', title: 'Overview', render: () => createOverviewContent(project, sections) },
+        ...sections.map(sec => ({ id: sec.id, title: sec.title, render: () => customTabHtml(sec) })),
+        ...(summary ? [{ id: 'summary', title: 'Summary', render: () => summary }] : [])
+    ];
 
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     document.getElementById('modalTitle').textContent = project.title;
+    document.getElementById('modalTabs').innerHTML = tabs.map((t, i) =>
+        `<button class="tab-btn${i === 0 ? ' active' : ''}" data-tab="${t.id}" role="tab">${t.title}</button>`).join('');
+    document.getElementById('modalBody').innerHTML = '';
 
-    // detailsEnabled defaults to true when undefined so legacy data keeps working.
-    const detailsTab = modal.querySelector('.tab-btn[data-tab="details"]');
-    if (detailsTab) detailsTab.hidden = project.detailsEnabled === false;
-
-    switchModalTab('overview');
-    requestAnimationFrame(() => populateModalContent(project));
+    requestAnimationFrame(() => populateModalContent(project, tabs));
 }
 
-function populateModalContent(project) {
-    document.getElementById('overview').innerHTML = createOverviewContent(project);
-    document.getElementById('details').innerHTML =
-        project.detailsEnabled === false ? '' : createDetailsContent(project);
+function populateModalContent(project, tabs) {
+    document.getElementById('modalBody').innerHTML = tabs.map(t =>
+        `<div class="tab-content" data-tab="${t.id}" role="tabpanel">${t.render()}</div>`).join('');
+    switchModalTab('overview');
 
     if (project.media && project.media.length > 1) initializeMediaShowcase(project.media);
 }
 
 function switchModalTab(tabName) {
     if (!modal) return;
-    modal.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName));
-    modal.querySelectorAll('.tab-content').forEach(el => el.classList.toggle('active', el.id === tabName));
+    modal.querySelectorAll('.tab-btn').forEach(btn => {
+        const active = btn.dataset.tab === tabName;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-selected', active);
+        if (active) btn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    });
+    modal.querySelectorAll('.tab-content').forEach(el => el.classList.toggle('active', el.dataset.tab === tabName));
+    modal.querySelector('.modal-content').scrollTop = 0;
+    pauseHiddenVideos();
 }
 
 function closeProjectModal() {
@@ -308,11 +376,13 @@ function closeProjectModal() {
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
     resetMediaShowcase();
+    // Drop the tab content so page videos stop playing.
+    document.getElementById('modalBody').innerHTML = '';
 }
 
 /* ---------- Overview tab ---------- */
 
-function createOverviewContent(project) {
+function createOverviewContent(project, sections) {
     const o = project.overview;
     const storeButton = o.status === 'Released' && o.storeUrl
         ? `<div class="store-cta">
@@ -320,6 +390,19 @@ function createOverviewContent(project) {
                    <i class="fas fa-external-link-alt"></i> Play Now
                </a>
            </div>`
+        : '';
+
+    // One Key Feature per custom tab; clicking it opens that tab.
+    const features = sections.length
+        ? `<h4>Key Features</h4>
+           <ul class="modal-features">${sections.map(sec => `
+               <li>
+                   <button type="button" class="feature-link" data-tab="${sec.id}">
+                       <span>${sec.feature}</span>
+                       <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                   </button>
+               </li>`).join('')}
+           </ul>`
         : '';
 
     return `
@@ -331,78 +414,118 @@ function createOverviewContent(project) {
             <div class="modal-info-item"><h4>Role</h4><p>${o.role}</p></div>
         </div>
         ${storeButton}
-        <h4>Key Features</h4>
-        <ul class="modal-features">${o.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        ${features}
         <div class="modal-tech-stack">
             <h4>Technology Stack</h4>
             <div class="modal-tech-tags">${tagsHtml(project.tech)}</div>
         </div>`;
 }
 
-/* ---------- In-Depth tab ---------- */
+/* ---------- Custom tabs ---------- */
 
-// The In-Depth tab is a set of pages: an optional Summary (challenges /
-// solutions / lessons) followed by each breakdown page from the admin tool.
-function createDetailsContent(project) {
-    const d = project.details || {};
-    const pages = [];
-
-    const summary = [
-        ['Challenges', d.challenges],
-        ['Solutions', d.solutions],
-        ['Lessons Learned', d.lessons]
-    ].filter(([, items]) => items && items.length);
-
-    if (summary.length) {
-        pages.push({
-            title: 'Summary',
-            html: summary.map(([heading, items]) => `
-                <div class="details-section">
-                    <h4>${heading}</h4>
-                    <ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>
-                </div>`).join('')
-        });
-    }
-
-    (d.pages || []).forEach(page => {
-        pages.push({ title: page.title || 'Untitled', html: breakdownPageHtml(page) });
-    });
-
-    if (!pages.length) return `<p class="details-empty">A breakdown for this project is on its way.</p>`;
+function customTabHtml(sec) {
+    const pages = sec.pages;
+    if (!pages.length) return `<p class="details-empty">This section is on its way.</p>`;
 
     const nav = pages.length > 1
         ? `<div class="page-nav">${pages.map((p, i) =>
-            `<button class="page-btn${i === 0 ? ' active' : ''}" data-page="${i}">${p.title}</button>`).join('')}</div>`
+            `<button class="page-btn${i === 0 ? ' active' : ''}" data-page="${i}">${p.title || `Page ${i + 1}`}</button>`).join('')}</div>`
         : '';
 
     return nav + pages.map((p, i) =>
-        `<div class="details-page${i === 0 ? ' active' : ''}" data-page="${i}">${p.html}</div>`).join('');
+        `<div class="details-page${i === 0 ? ' active' : ''}" data-page="${i}">${breakdownPageHtml(p)}</div>`).join('');
+}
+
+// A page's content in display order. Pages saved before blocks existed
+// ({ body, images }) are read as their text followed by their images.
+function pageBlocks(page) {
+    if (Array.isArray(page.blocks)) return page.blocks;
+    const blocks = page.body ? [{ type: 'text', body: page.body }] : [];
+    return blocks.concat((page.images || []).map(im => ({ type: 'image', ...im })));
 }
 
 function breakdownPageHtml(page) {
-    const figures = (page.images || []).map(img => `
-        <figure class="breakdown-figure">
-            <div class="media-frame">
-                ${captionHtml(img.caption)}
-                <img src="${img.path}" alt="${attr(img.caption || page.title)}" loading="lazy" onerror="this.closest('figure').remove()">
-            </div>
-        </figure>`).join('');
+    const content = pageBlocks(page).map(block => {
+        if (block.type === 'image') return breakdownImageHtml(block, page);
+        if (block.type === 'video') return breakdownVideoHtml(block, page);
+        const body = (block.body || '').trim();
+        return body ? `<div class="breakdown-body">${body}</div>` : '';
+    }).join('');
 
     return `
         <article class="breakdown">
             ${page.title ? `<h3 class="breakdown-title">${page.title}</h3>` : ''}
-            ${page.body ? `<div class="breakdown-body">${page.body.trim()}</div>` : ''}
-            ${figures}
+            ${content}
         </article>`;
 }
 
-function showDetailsPage(index) {
-    const details = document.getElementById('details');
-    details.querySelectorAll('.page-btn').forEach(btn => btn.classList.toggle('active', +btn.dataset.page === index));
-    details.querySelectorAll('.details-page').forEach(el => el.classList.toggle('active', +el.dataset.page === index));
+// An image block: a single image, a before | after pair, or a before/after
+// slider. Comparison modes fall back to a single image until the after
+// image exists.
+function breakdownImageHtml(block, page) {
+    if (!block.path) return '';
+    const alt = attr(block.caption || page.title);
+    const img = (src, altText, cls = '') =>
+        `<img${cls ? ` class="${cls}"` : ''} src="${src}" alt="${altText}" loading="lazy" onerror="this.closest('figure').remove()">`;
 
-    const nav = details.querySelector('.page-nav');
+    if (block.afterPath && (block.mode === 'side-by-side' || block.mode === 'slider')) {
+        return `
+            <figure class="breakdown-figure">
+                ${block.caption ? `<figcaption class="breakdown-caption">${block.caption}</figcaption>` : ''}
+                ${compareMediaHtml({
+                    mode: block.mode,
+                    before: block.path,
+                    after: block.afterPath,
+                    beforeLabel: block.beforeLabel,
+                    afterLabel: block.afterLabel,
+                    alt,
+                    img
+                })}
+            </figure>`;
+    }
+
+    return `
+        <figure class="breakdown-figure">
+            <div class="media-frame">
+                ${captionHtml(block.caption)}
+                ${img(block.path, alt)}
+            </div>
+        </figure>`;
+}
+
+// A YouTube video block. Skipped when the link isn't a recognisable YouTube video.
+function breakdownVideoHtml(block, page) {
+    const id = extractYouTubeId(block.url);
+    const src = id && buildEmbedSrc(block.url, { enablejsapi: '1' });
+    if (!src) return '';
+    const title = attr(block.caption || page.title || 'Video');
+    return `
+        <figure class="breakdown-figure breakdown-video">
+            ${block.caption ? `<figcaption class="breakdown-caption">${block.caption}</figcaption>` : ''}
+            <div class="video-frame">
+                ${youtubeEmbedHtml(src, title, `https://www.youtube.com/watch?v=${id}`, true)}
+            </div>
+        </figure>`;
+}
+
+// Pause page videos that are no longer on screen (they keep playing when hidden).
+function pauseHiddenVideos() {
+    const command = JSON.stringify({ event: 'command', func: 'pauseVideo', args: [] });
+    document.querySelectorAll('#modalBody .breakdown-video iframe').forEach(iframe => {
+        if (iframe.offsetParent === null && iframe.contentWindow) {
+            iframe.contentWindow.postMessage(command, '*');
+        }
+    });
+}
+
+function showTabPage(panel, index) {
+    if (!panel) return;
+    panel.querySelectorAll('.page-btn').forEach(btn => btn.classList.toggle('active', +btn.dataset.page === index));
+    panel.querySelectorAll('.details-page').forEach(el => el.classList.toggle('active', +el.dataset.page === index));
+
+    const nav = panel.querySelector('.page-nav');
     if (nav) nav.scrollIntoView({ block: 'nearest' });
+    pauseHiddenVideos();
 }
 
 /* ---------- Scroll effects ---------- */

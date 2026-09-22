@@ -45,8 +45,8 @@ function buildEmbedSrc(input, extraParams) {
     }
 }
 
-function youtubeEmbedHtml(src, title, watchUrl) {
-    return `<div class="media-youtube-embed"><iframe src="${src}" title="${title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div class="yt-error-fallback"><i class="fas fa-exclamation-circle"></i><p>This video can't be embedded.</p><a href="${watchUrl}" target="_blank" rel="noopener" class="yt-watch-btn">Watch on YouTube</a></div></div>`;
+function youtubeEmbedHtml(src, title, watchUrl, lazy) {
+    return `<div class="media-youtube-embed"><iframe src="${src}" title="${title}"${lazy ? ' loading="lazy"' : ''} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div class="yt-error-fallback"><i class="fas fa-exclamation-circle"></i><p>This video can't be embedded.</p><a href="${watchUrl}" target="_blank" rel="noopener" class="yt-watch-btn">Watch on YouTube</a></div></div>`;
 }
 
 /* ---------- Shared markup helpers ---------- */
@@ -58,6 +58,34 @@ function attr(value) {
 // Transparent header laid over the top of an image.
 function captionHtml(caption) {
     return caption ? `<div class="media-caption">${caption}</div>` : '';
+}
+
+// Before/after markup shared by the Overview showcase and custom-tab pages.
+// mode is 'side-by-side' or 'slider'. img(url, alt, className) builds each
+// <img>, so callers decide lazy loading and error handling.
+function compareMediaHtml({ mode, before, after, beforeLabel, afterLabel, alt, img }) {
+    const b = beforeLabel || 'Before';
+    const a = afterLabel || 'After';
+    const beforeAlt = `${alt} (${attr(b)})`;
+    const afterAlt = `${alt} (${attr(a)})`;
+
+    if (mode === 'side-by-side') {
+        return `
+            <div class="compare-pair">
+                <div class="media-frame"><span class="compare-label">${b}</span>${img(before, beforeAlt)}</div>
+                <div class="media-frame"><span class="compare-label">${a}</span>${img(after, afterAlt)}</div>
+            </div>`;
+    }
+    return `
+        <div class="compare-slider" style="--split: 50%">
+            ${img(before, beforeAlt, 'compare-before')}
+            ${img(after, afterAlt, 'compare-after')}
+            <span class="compare-label">${b}</span>
+            <span class="compare-label compare-label-after">${a}</span>
+            <span class="compare-handle" aria-hidden="true"><i class="fas fa-arrows-left-right"></i></span>
+            <input class="compare-range" type="range" min="0" max="100" value="50" step="0.5"
+                   aria-label="Drag to compare ${attr(b)} and ${attr(a)}">
+        </div>`;
 }
 
 function placeholderHtml(icon, title, text) {
@@ -192,7 +220,14 @@ async function loadProjectImages() {
 
         try {
             const displayMedia = await loadInventoryImages(inventory.displayImages);
-            displayMedia.forEach(item => { item.caption = captions[`image:${item.url}`] || ''; });
+            const compare = project.mediaCompare || {};
+            displayMedia.forEach(item => {
+                const key = `image:${item.url}`;
+                item.caption = captions[key] || '';
+                // Before/after only once the after image exists.
+                const cmp = compare[key];
+                if (cmp && cmp.mode && cmp.mode !== 'normal' && cmp.afterPath) item.compare = cmp;
+            });
             const ordered = (project.mediaOrder && project.mediaOrder.length > 0)
                 ? applyMediaOrder(displayMedia, youtubeItems, project.mediaOrder)
                 : [...displayMedia, ...youtubeItems];
@@ -292,7 +327,28 @@ function createMediaShowcaseItem(item, index) {
     }
 
     // First image loads eagerly; the rest load when shown.
-    const src = index === 0 ? `src="${item.url}"` : `src="${BLANK_SRC}" data-src="${item.url}"`;
+    const srcFor = url => index === 0 ? `src="${url}"` : `src="${BLANK_SRC}" data-src="${url}"`;
+    const src = srcFor(item.url);
+
+    if (item.compare) {
+        const media = compareMediaHtml({
+            mode: item.compare.mode,
+            before: item.url,
+            after: item.compare.afterPath,
+            beforeLabel: item.compare.beforeLabel,
+            afterLabel: item.compare.afterLabel,
+            alt: attr(item.caption || item.title),
+            img: (url, alt, cls) => `<img${cls ? ` class="${cls}"` : ''} ${srcFor(url)} alt="${alt}" onerror="showBrokenMedia(this)">`
+        });
+        return `
+            <div class="media-showcase-item${active}" data-index="${index}">
+                <div class="showcase-compare">
+                    ${item.caption ? `<div class="showcase-compare-caption">${item.caption}</div>` : ''}
+                    ${media}
+                </div>
+            </div>`;
+    }
+
     return `
         <div class="media-showcase-item${active}" data-index="${index}">
             <div class="media-frame">
@@ -372,7 +428,7 @@ function showMediaAtIndex(index) {
             const src = buildEmbedSrc(item.embedSrc || item.url, { autoplay: '1', enablejsapi: '1' });
             el.innerHTML = youtubeEmbedHtml(src, item.title, item.url);
         } else {
-            loadDeferredImage(el.querySelector('img[data-src]'));
+            el.querySelectorAll('img[data-src]').forEach(loadDeferredImage);
         }
     });
 
@@ -434,7 +490,12 @@ window.addEventListener('message', (event) => {
         const data = JSON.parse(event.data);
         const isError = data.event === 'onError' || (data.event === 'infoDelivery' && data.info && data.info.errorCode);
         if (!isError) return;
-        const embed = document.querySelector('.media-showcase-item.active[data-type="youtube"] .media-youtube-embed');
+        // Match the iframe that sent the message (showcase or a page video).
+        const iframe = [...document.querySelectorAll('.media-youtube-embed iframe')]
+            .find(f => f.contentWindow === event.source);
+        const embed = iframe
+            ? iframe.closest('.media-youtube-embed')
+            : document.querySelector('.media-showcase-item.active[data-type="youtube"] .media-youtube-embed');
         if (embed) embed.classList.add('yt-error');
     } catch {}
 });

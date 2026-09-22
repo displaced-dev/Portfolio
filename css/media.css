@@ -1,6 +1,7 @@
 /* ==========================================================================
-   Project media: image frames with caption headers (used by the Overview
-   showcase and In-Depth pages), the showcase slider, and YouTube embeds.
+   Project media: image frames with caption headers, before/after images
+   (used by the Overview showcase and custom-tab pages), the showcase
+   slider, and YouTube embeds.
    ========================================================================== */
 
 :root {
@@ -235,6 +236,163 @@
         color: var(--text);
     }
 
+/* ---------- Before / after images ---------- */
+.compare-label {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 2;
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.4;
+    pointer-events: none;
+}
+
+/* Before | After: two frames side by side, stacked on small screens */
+.compare-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    align-items: start;
+}
+
+    .compare-pair .media-frame {
+        display: block;
+    }
+
+        .compare-pair .media-frame img {
+            width: 100%;
+        }
+
+/* Bef/ter: after image layered over before, clipped at --split */
+.compare-slider {
+    --split: 50%;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    line-height: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+    .compare-slider img {
+        max-width: 100%;
+        pointer-events: none;
+    }
+
+    .compare-slider .compare-after {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        clip-path: inset(0 0 0 var(--split));
+    }
+
+    .compare-slider .compare-label-after {
+        left: auto;
+        right: 0.6rem;
+    }
+
+.compare-handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--split);
+    z-index: 2;
+    width: 2px;
+    margin-left: -1px;
+    background: #fff;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+}
+
+    .compare-handle i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #fff;
+        color: var(--red);
+        font-size: 0.9rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        transform: translate(-50%, -50%);
+    }
+
+/* Invisible full-size range input: drag anywhere, keyboard arrows work too */
+.compare-range {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.compare-slider:has(.compare-range:focus-visible) .compare-handle i {
+    outline: 2px solid var(--red);
+    outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+    .compare-pair {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Before/after inside the Overview showcase: fit the fixed-height stage,
+   keep the pair side by side, leave room for the nav buttons */
+.showcase-compare {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    height: 100%;
+    padding: 0.75rem 4rem;
+}
+
+.showcase-compare-caption {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text);
+    text-align: center;
+}
+
+.showcase-compare .compare-pair {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+    .showcase-compare .compare-pair .media-frame {
+        display: inline-block;
+    }
+
+        .showcase-compare .compare-pair .media-frame img,
+        .showcase-compare .compare-slider .compare-before {
+            width: auto;
+            max-height: calc(var(--media-h) - 4rem);
+        }
+
 /* YouTube */
 .media-youtube-embed,
 .media-youtube-placeholder {
@@ -334,6 +492,25 @@
 @media (max-width: 480px) {
     :root {
         --media-h: 220px;
+    }
+
+    .showcase-compare {
+        padding: 0.5rem 3.75rem;
+    }
+
+    .compare-label {
+        top: 0.4rem;
+        left: 0.4rem;
+        max-width: 45%;
+        overflow: hidden;
+        padding: 0.1rem 0.4rem;
+        font-size: 0.68rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .compare-slider .compare-label-after {
+        right: 0.4rem;
     }
 
     .media-showcase-thumbnails {

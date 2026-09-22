@@ -81,8 +81,7 @@ const imageInventory = {
         "displayImages": [
             "assets/Displaced/displayPhoto_1.png",
             "assets/Displaced/displayPhoto_2.png",
-            "assets/Displaced/displayPhoto_3.png",
-            "assets/Displaced/displayPhoto_4.png"
+            "assets/Displaced/displayPhoto_3.png"
         ]
     },
     "mr-bubbles": {
@@ -131,11 +130,7 @@ const projects = [
         "detailsEnabled": false,
         "media": [],
         "overview": {
-            "description": "A new type of creature, known as Phons, is overruning the world. They are spreading wildly. The military sends troops to ground zero to collect a sample.\n\nEach player must enter ground zero. Find the sample, and get out. However, it won't be that simple. When encountering their foe, they must be careful, as it doesn't die; it adapts. \n\nThe Phon is designed with the ability not to die, but rather to adapt to the method by which it was hurt. Knock it over for a short duration before it stands up with better tools in its arsenal. To handle melee weapons, it will develop ranged weapons, and to meet ranged weapons with armor.\n\n",
-            "features": [
-                "CO-OP",
-                "First Person Combat"
-            ],
+            "description": "The Phon is designed with the ability not to die, but rather to adapt to the method by which it was hurt. Knock it over for a short duration before it stands up with better tools in its arsenal. To handle melee weapons, it will develop ranged weapons, and to meet ranged weapons with armor.\n\n",
             "platforms": [
                 "Windows",
                 "Mac",
@@ -149,9 +144,11 @@ const projects = [
             "challenges": [],
             "solutions": [],
             "lessons": [],
-            "pages": []
+            "sections": []
         },
-        "mediaCaptions": {}
+        "mediaCaptions": {},
+        "mediaOrder": [],
+        "mediaCompare": {}
     },
     {
         "id": "strictly-human",
@@ -172,10 +169,7 @@ const projects = [
         "detailsEnabled": false,
         "media": [],
         "overview": {
-            "description": "When the train conductor is found brutally murdered, Sheriff Horace; trapped in a rolling prison alongside six other passengers, must reveal the monstrous killer from behind their mask.",
-            "features": [
-                "Narrative"
-            ],
+            "description": "When the train conductor is found brutally murdered, Sheriff Horace; trapped in a rolling prison alongside six other passengers, must reveal the monstrous killer from behind their mask.\n\nDevelopment focused on a mix of Dialogue and Interactions players would take outside. ",
             "platforms": [
                 "Windows",
                 "Linux",
@@ -189,9 +183,10 @@ const projects = [
             "challenges": [],
             "solutions": [],
             "lessons": [],
-            "pages": []
+            "sections": []
         },
-        "mediaCaptions": {}
+        "mediaCaptions": {},
+        "mediaCompare": {}
     },
     {
         "id": "mr-bubbles",
@@ -218,12 +213,6 @@ const projects = [
         "media": [],
         "overview": {
             "description": "Mr. Bubbles Car Wash combines business simulation with subtle character-driven storytelling.",
-            "features": [
-                "Business management and progression systems",
-                "Dynamic Clientele",
-                "Detailed car washing mini-games",
-                "Custom 3D environments"
-            ],
             "platforms": [
                 "Windows",
                 "Itch.io"
@@ -249,7 +238,7 @@ const projects = [
                 "Feedback is critical, but a problem has multiple solutions",
                 "Ensure Polish on elements possessed rather than attempting to produce rushed concepts."
             ],
-            "pages": []
+            "sections": []
         },
         "mediaOrder": [
             "image:assets/MrBubbles/displayPhoto_1.png",
@@ -257,13 +246,16 @@ const projects = [
             "image:assets/MrBubbles/displayPhoto_2.png",
             "image:assets/MrBubbles/displayPhoto_3.png"
         ],
-        "mediaCaptions": {}
+        "mediaCaptions": {},
+        "mediaCompare": {}
     },
     {
         "id": "displaced",
         "assetFolder": "Displaced",
         "type": "project",
-        "youtubeUrls": [],
+        "youtubeUrls": [
+            "https://www.youtube.com/watch?v=d8_cd5z4ysw"
+        ],
         "detailsEnabled": true,
         "title": "Displaced",
         "description": "A First Person Multiplayer FPS, fight across two dimensions to conquer reality, and survive the oncoming apocalypse.",
@@ -281,13 +273,7 @@ const projects = [
         "featured": false,
         "media": [],
         "overview": {
-            "description": "Displaced takes place across two realities, fighting for control. Players must switch between these realities mid-fight to obtain the best positioning advantage. \n\nDisplaced offers a unique team shooter dynamic where players have the ability to better navigate the map. The ability to swap dimensions prevents the feeling of getting fully stuck in tight, narrow areas or getting camped. ",
-            "features": [
-                "Multiplayer, First Person Shooter",
-                "Team Based, Hero Shooter",
-                "Two Dimensions - One Fight",
-                "Spatial audio design using Wwise"
-            ],
+            "description": "Displaced takes place across two realities, fighting for control. Players must switch between these realities mid-fight, which changes their positioning but offers ways in which they can surprise their enemies.\n\nDisplaced offers a unique team shooter dynamic where players have the ability to better navigate the map. The ability to swap dimensions prevents the feeling of getting fully stuck in tight, narrow areas or getting camped. \n\n- 50+ Playtesters\n- 49 Released Patches\n- 1000+ Hours of Development",
             "platforms": [
                 "PC",
                 "Steam"
@@ -300,119 +286,419 @@ const projects = [
             "challenges": [],
             "solutions": [],
             "lessons": [],
-            "pages": [
+            "sections": [
                 {
-                    "title": "Designing the Maps: The Prototype",
-                    "body": "The following is taken throughout the development of Displaced. Seen will be versions of the map \"Idona\". \n\nIdona originally was conceived as a map that used the traditional three-lane design, but vertically. Throughout its original concepting phase, we added elements such as elevators and created tunnels in order to facilitate the pathing of players. \n\nWe noted it was quite fun; however, there were key issues, especially in regard to the tunnels. They were long funnels that didn't have any way of breaking up line of sight. They did help players cross the point more easily; however, they fell into the trap of what Displaced was trying to avoid (one-sided chokes). \n\nAfter our first couple of prototypes internally, we produced Version 1 of the map (seen later).",
-                    "images": [
+                    "title": "Designing the Gameplay",
+                    "feature": "The Unique Gameplay",
+                    "pages": [
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubzocym92kd.png",
-                            "caption": "Top Down"
+                            "title": "The Mechanic",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "One of the largest pieces of inspiration for the Design of the mechanic is the game Titanfall 2, and the specific mechanic from the level Effect and Cause, commonly known as the \"Time Travel Mission\". \n\nBeing able to swap between two variations of the same map, and maneuver through the level was not only jaw dropping, but could create some genuinely interesting interactions between the player mechanics, but the map design as well. It was unfortunate however to see a pretty toned down, and ultimately a different thing entirely in the multiplayer side. I noted a few reasons why.\n\n- Players move so fast that having to maintain track of players in the same world was already hard enough\n- Being a giant, not only makes you a large target, but also creates large blind spots\n- The maps are generally quite open, meaning the linear effect that can be catered in the single player mission is much harder\n- It's the point of the game.\n\nSo I asked myself, what if it was, I would need to make a more toned down, smaller area for players to swap between these two dimensions, and have it be the focus of the game. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "https://youtu.be/XOY4tV5thT0",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "I had a very clear reference for how it was supposed to work, thus it wasn't long before I was able to concept a basic prototype. With ideas being tested on how the mechanic would manifest for players observing it. Placeable portals were concepted, however with its similarity to Splitgate, and the importance of trying to keep the mechanic as simple as possible, an instant action was selected. "
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubz403i9bxp.png",
-                            "caption": "Looking at Point"
+                            "title": "Playtesting and Iterating",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubz4crp5hyv.png",
-                            "caption": "One of the first prototypes"
+                            "title": "The Experience",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubzoen3ucix.png",
-                            "caption": "Looking at Tunnel"
+                            "title": "The Sound",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "title": "Designing the Maps: Version 1",
-                    "body": "Displaced has always been a small project; however, that doesn't mean we want it sheltered. We've had the opportunity to put it in front of 50+ players ranging across all backgrounds. \n\nPlaytesting has always been a major helpful element that allows us to improve, as we are aware that we'll never be right the first time, but it's important to adapt to what's needed. \n\nIn Version 1, we stripped out the tunnel underneath. We felt this tunnel was not only not being used, but also created friction points on the exit tunnels, as the systems didn't let it feel expressive and create the moments we were targeting. It's one of the reasons we decided to create more open areas. Switching between two dimensions becomes null and void if players teleport, but remain in the same place that they were in previous versions; it simply ends up extending time to kill, without improving the experience. \n\nCommon complaints in this era unfortunately stemmed from the system creating pain points within the maps that made them the priority, and left the maps in limbo for a while.  One major map change was the removal of the elevator entirely. In concept, it sounded cool to have this trade-off for standing still to get high ground, but it resulted in a boring and stressful element that was not that rewarding. Alternative paths proved more valuable and were thus removed. \n\nI also had time to have Version 1 peer reviewed by another developer. This was some of the most extremely helpful feedback, as there were a lot of issues. \n- The area was extremely linear. Players only had one viable exit from their spawn, leading to a plethora of issues.\n- The back section felt irrelevant and was very locked down, preventing easy rotation and free flow.\n- The high ground that littered the sections on the south side, while having interesting skill elements, required too much cognitive load and was too inconsistent, with no cover. ",
-                    "images": [
+                    "title": "Designing the Characters",
+                    "feature": "The Different Characters",
+                    "pages": [
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0w2mr8osl.png",
-                            "caption": "Top Down"
+                            "title": "Overview",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "The deign of the characters came from a mix of experience, preference, and necessity.\n\nThe experience I have is from a background in Hero Shooters. The games I have the most hours in is Overwatch, Valorant, and Marvel Rivals. Due to this, it wasn't a stretch for me to design with those games and understand what I would need to have the completed game.\n\nFinally, the reason it needed to be a hero shooter, was because I didn't want to make a plethora of guns, animations, and other elements on a limited budget. The resources I already had access to was a selection of character models, and I chose to make those characters unique and meeting a fantasy, rather than a player's self insert. \n\nThroughout the development of the character's kit's, a lot of issues would arise. The following chapters will break down the character's kits, why the failed, and how they were redesigned. "
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubzte0vjwvz.png",
-                            "caption": "From Heaven"
+                            "title": "The Original Kits",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nGhant\n\nGhant was an attempt at making my generic character. Someone that didn't have a complex kit, and would allow those with different backgrounds to pickup the unique mechanic without stressing. \n\nHis Ability was to provide an Adrenaline rush, accessing improvements to speed, fire rate, and reload speeds. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "His Ultimate was a way to make him a glass cannon. Reducing his health to a low percentage, and boosting his aforementioned stats including regen rate for a duration."
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nHuntress\n\nHuntress was designed as someone who would want to focus on one person, and do anything in order to get them. This person would have good target priority, ultimate tracking, and positioning awareness. \n\nHuntress had an increased cooldown on her own ability to swap dimensions, and would thus need to rely more so on her other abilities to get around.\n\nHuntress' ability was Hijack. This ability allows Huntress to walk up to any other person's breach, and hijack it. This would move Huntress to the other dimension, without wasting her person dimension charge. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "Huntress' Ultimate was known as Dimensional Network. This ultimate created a bunch of open breaches, denoted by it's green color. These breaches allowed for the free traversal of anyone. The aim for this ability would be that it either helps huntress chase her targets, or lull them into a false sense of security, taking the breaches, and running right into her. "
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nNeya\n\nNeya was for the person who thought they could outplay anyone. Neya's kit offered her ways to bypass the typical rules of the game, at the cost of her own hp. This meant that if you were methodical, you could outplay someone or make a mistake and be their dinner. \n\nNeya's ability granted her the option to bypass the cooldown of her dimension swap, at the cost of the health relational to % of time remaining."
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "Neya's ultimate was the ability to cloak herself. Note this didn't stop her sounds, however it would be perceived by the enemies the same way her ability looked. This meant that you could make someone think you've changed dimensions by standing quite still. "
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nCleave\n\nCleave was designed for the person who may not believe in their ability to take a one on one, but has the analytical brain to scope out an area, to provide intel, and to help their team by arriving at the right time to provide support. \n\nCleave's ability created a copy of himself, that could run around scoping areas out. However this came at the risk of his main body being stationary. For the first few seconds of the drone, Cleave would be invisble, before becoming revealed. At the end of the drone, he would regain control. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "Cleaves ultimate was quite similar to his ability. He could mix it around which one he chose, however he would have to commit. Using his ultimate would send out a drone, however at the end of which he would be transported to wherever the drone's position ended. This meant players needed to be cautious around his drone, as it could be simply for intel gathering or for rotation."
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nNole\n\nNole was for the person who wanted to take every fight. They could power through and wanted to be the lead of their team. Nole wasn't exceptionally good in any specific fight, but was designed so that that they had a chance in any fight. The skill of the player was what allowed Nole to be a dominant force. \n\nNole's ability was to shift between dimensions and become impervous for a short duration with a slight buff to movement speeds. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "Nole's ability was to become dimension agnostic, allowing for the shifting freely between dimensions, without being able to take damage, allowing for the free rotation anywhere. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "",
+                                    "caption": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubzuyvyonn7.png",
-                            "caption": "Backside Facing Point"
+                            "title": "Why They Failed",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_mubzvcpyr6t4.png",
-                            "caption": "Front of Spawn"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc00mt5ivrs.png",
-                            "caption": "Top Down Denoted"
+                            "title": "The Redesigns",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": ""
+                                }
+                            ]
                         }
                     ]
                 },
                 {
-                    "title": "Designing the Maps: Version 2",
-                    "body": "This whole time, players could swap dimensions once, travel anywhere unpredictably, and were \"trading\" positions with other players. This led to a feeling that players would just miss someone when trying to hunt them down.\n\nTo solve these issues, we looked back at inspirations and similar titles. We noted a lot more freedom, in which the players had to move more than once. Players had a lot more freedom to make their way in and out of tight situations, and so we wanted to try that by allowing players multiple uses, but with more punishment for not having them. This created a new issue of players being all over the place.\n\nWe decided we could now add irregularities or items that are there in one dimension, but not in the other. When players only had one use, this could create a hard wall for the player that they couldn’t move past and were thus stuck waiting a long time before being able to proceed. However, now with two uses, we could better justify the scenarios in which you can better predict where someone might appear.\n\nThe introduction of irregularities dramatically improved the feeling of the core mechanic and allowed us to experiment to find the best combination of punishing those who swapped poorly while allowing thoughtful pathing. \n\nWe also improved the pathing from a player's spawn to the main point, reverting back to the more normalized three-lane design and focusing more on what elevated the game without trying to break the mold. ",
-                    "images": [
+                    "title": "Designing The Maps",
+                    "feature": "The Maps",
+                    "pages": [
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0wclfec4y.png",
-                            "caption": "Prototyping New Version"
+                            "title": "Designing the Maps: The Prototype",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "The following is taken throughout the development of Displaced. Seen will be versions of the map \"Idona\". \n\nIdona originally was conceived as a map that used the traditional three-lane design, but vertically. Throughout its original concepting phase, we added elements such as elevators and created tunnels in order to facilitate the pathing of players. \n\nWe noted it was quite fun; however, there were key issues, especially in regard to the tunnels. They were long funnels that didn't have any way of breaking up line of sight. They did help players cross the point more easily; however, they fell into the trap of what Displaced was trying to avoid (one-sided chokes). \n\nAfter our first couple of prototypes internally, we produced Version 1 of the map (seen later)."
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubzocym92kd.png",
+                                    "caption": "Top Down",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubz403i9bxp.png",
+                                    "caption": "Looking at Point",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubz4crp5hyv.png",
+                                    "caption": "One of the first prototypes",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubzoen3ucix.png",
+                                    "caption": "Looking at Tunnel",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc09iadhxjc.png",
-                            "caption": "Exiting Spawn"
+                            "title": "Designing the Maps: Version 1",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "Displaced has always been a small project; however, that doesn't mean we want it sheltered. We've had the opportunity to put it in front of 50+ players ranging across all backgrounds. \n\nPlaytesting has always been a major helpful element that allows us to improve, as we are aware that we'll never be right the first time, but it's important to adapt to what's needed. \n\nIn Version 1, we stripped out the tunnel underneath. We felt this tunnel was not only not being used, but also created friction points on the exit tunnels, as the systems didn't let it feel expressive and create the moments we were targeting. It's one of the reasons we decided to create more open areas. Switching between two dimensions becomes null and void if players teleport, but remain in the same place that they were in previous versions; it simply ends up extending time to kill, without improving the experience. \n\nCommon complaints in this era unfortunately stemmed from the system creating pain points within the maps that made them the priority, and left the maps in limbo for a while.  One major map change was the removal of the elevator entirely. In concept, it sounded cool to have this trade-off for standing still to get high ground, but it resulted in a boring and stressful element that was not that rewarding. Alternative paths proved more valuable and were thus removed. \n\nI also had time to have Version 1 peer reviewed by another developer. This was some of the most extremely helpful feedback, as there were a lot of issues. \n- The area was extremely linear. Players only had one viable exit from their spawn, leading to a plethora of issues.\n- The back section felt irrelevant and was very locked down, preventing easy rotation and free flow.\n- The high ground that littered the sections on the south side, while having interesting skill elements, required too much cognitive load and was too inconsistent, with no cover. "
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0w2mr8osl.png",
+                                    "caption": "Top Down",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubzte0vjwvz.png",
+                                    "caption": "From Heaven",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubzuyvyonn7.png",
+                                    "caption": "Backside Facing Point",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mubzvcpyr6t4.png",
+                                    "caption": "Front of Spawn",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc00mt5ivrs.png",
+                                    "caption": "Top Down Denoted",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc09wk9w9ou.png",
-                            "caption": "From Heaven"
+                            "title": "Designing the Maps: Version 2",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "This whole time, players could swap dimensions once, travel anywhere unpredictably, and were \"trading\" positions with other players. This led to a feeling that players would just miss someone when trying to hunt them down.\n\nTo solve these issues, we looked back at inspirations and similar titles. We noted a lot more freedom, in which the players had to move more than once. Players had a lot more freedom to make their way in and out of tight situations, and so we wanted to try that by allowing players multiple uses, but with more punishment for not having them. This created a new issue of players being all over the place.\n\nWe decided we could now add irregularities or items that are there in one dimension, but not in the other. When players only had one use, this could create a hard wall for the player that they couldn’t move past and were thus stuck waiting a long time before being able to proceed. However, now with two uses, we could better justify the scenarios in which you can better predict where someone might appear.\n\nThe introduction of irregularities dramatically improved the feeling of the core mechanic and allowed us to experiment to find the best combination of punishing those who swapped poorly while allowing thoughtful pathing. \n\nWe also improved the pathing from a player's spawn to the main point, reverting back to the more normalized three-lane design and focusing more on what elevated the game without trying to break the mold. "
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0wclfec4y.png",
+                                    "caption": "Prototyping New Version",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc09iadhxjc.png",
+                                    "caption": "Exiting Spawn",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc09wk9w9ou.png",
+                                    "caption": "From Heaven",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc09men7rs3.png",
+                                    "caption": "Backside Facing Point",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0aaczft1f.png",
+                                    "caption": "Sitting In Mid",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                }
+                            ]
                         },
                         {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc09men7rs3.png",
-                            "caption": "Backside Facing Point"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0aaczft1f.png",
-                            "caption": "Sitting In Mid"
-                        }
-                    ]
-                },
-                {
-                    "title": "Designing the Maps: Where We are Now",
-                    "body": "Idona's map design has taken on many changes throughout its lifetime. \n\nTo say it won't see any more would be far from correct; however, with each iteration, it has allowed for continuous improvement in order to highlight the player experience that's the most entertaining rather than throwing mechanics everywhere. ",
-                    "images": [
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0yc00ege3.png",
-                            "caption": "Top Down"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0c32xwcam.png",
-                            "caption": "Exiting Spawn"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0c5gqtzmc.png",
-                            "caption": "Backside Facing Point"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc0ca6t3p9m.png",
-                            "caption": "Sitting In Mid"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc118yltu2a.png",
-                            "caption": "Facing Spawn and Tunnels"
-                        },
-                        {
-                            "path": "assets/Displaced/Breakdown/breakdown_muc127963i2z.png",
-                            "caption": "Inside the New Tunnels"
+                            "title": "Designing the Maps: Where We are Now",
+                            "blocks": [
+                                {
+                                    "type": "text",
+                                    "body": "Idona's map design has taken on many changes throughout its lifetime. \n\nTo say it won't see any more would be far from correct; however, with each iteration, it has allowed for continuous improvement in order to highlight the player experience that's the most entertaining rather than throwing mechanics everywhere. "
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0yc00ege3.png",
+                                    "caption": "Top Down",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0c32xwcam.png",
+                                    "caption": "Exiting Spawn",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0c5gqtzmc.png",
+                                    "caption": "Backside Facing Point",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc0ca6t3p9m.png",
+                                    "caption": "Sitting In Mid",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc118yltu2a.png",
+                                    "caption": "Facing Spawn and Tunnels",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_muc127963i2z.png",
+                                    "caption": "Inside the New Tunnels",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                }
+                            ]
                         }
                     ]
                 }
             ]
         },
         "mediaCaptions": {
-            "image:assets/Displaced/displayPhoto_2.png": "Backside in Version 1",
-            "image:assets/Displaced/displayPhoto_3.png": "Backside in Version 2",
-            "image:assets/Displaced/displayPhoto_4.png": "Backside in Version 3"
+            "image:assets/Displaced/displayPhoto_3.png": "Progression of the Map Design",
+            "image:assets/Displaced/displayPhoto_2.png": "Dimensions Designed to Path the Player"
         },
-        "mediaOrder": []
+        "mediaOrder": [],
+        "mediaCompare": {
+            "image:assets/Displaced/displayPhoto_3.png": {
+                "mode": "slider",
+                "afterPath": "assets/Displaced/Compare/compare_mud272xorzwe.png",
+                "beforeLabel": "Idona Version 1",
+                "afterLabel": "Idona Version 2"
+            },
+            "image:assets/Displaced/displayPhoto_2.png": {
+                "mode": "slider",
+                "afterPath": "assets/Displaced/Compare/compare_mud2ck8tukvm.png",
+                "beforeLabel": "Dimension A",
+                "afterLabel": "Dimension B"
+            }
+        }
     }
 ];
 

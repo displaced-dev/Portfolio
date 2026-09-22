@@ -1,13 +1,14 @@
 {
-  "generatedAt": "2026-09-22T02:14:34.597Z",
+  "generatedAt": "2026-05-15T17:05:25.050Z",
   "imageInventory": {
-    "from-the-ashes": {
-      "thumbnail": "assets/FromTheAshes/thumbnailPhoto.png",
+    "mr-bubbles": {
+      "thumbnail": "assets/MrBubbles/thumbnailPhoto.png",
       "displayImages": [
-        "assets/FromTheAshes/displayPhoto_1.png",
-        "assets/FromTheAshes/displayPhoto_2.png",
-        "assets/FromTheAshes/displayPhoto_3.png"
-      ]
+        "assets/MrBubbles/displayPhoto_1.png",
+        "assets/MrBubbles/displayPhoto_2.png",
+        "assets/MrBubbles/displayPhoto_3.png"
+      ],
+      "comparisonImages": []
     },
     "strictly-human": {
       "thumbnail": "assets/StrictlyHumanAffair/thumbnailPhoto.jpeg",
@@ -16,15 +17,17 @@
         "assets/StrictlyHumanAffair/displayPhoto_2.jpg",
         "assets/StrictlyHumanAffair/displayPhoto_3.jpg",
         "assets/StrictlyHumanAffair/displayPhoto_4.jpg"
-      ]
+      ],
+      "comparisonImages": []
     },
-    "mr-bubbles": {
-      "thumbnail": "assets/MrBubbles/thumbnailPhoto.png",
+    "from-the-ashes": {
+      "thumbnail": "assets/FromTheAshes/thumbnailPhoto.png",
       "displayImages": [
-        "assets/MrBubbles/displayPhoto_1.png",
-        "assets/MrBubbles/displayPhoto_2.png",
-        "assets/MrBubbles/displayPhoto_3.png"
-      ]
+        "assets/FromTheAshes/displayPhoto_1.png",
+        "assets/FromTheAshes/displayPhoto_2.png",
+        "assets/FromTheAshes/displayPhoto_3.png"
+      ],
+      "comparisonImages": []
     },
     "displaced": {
       "thumbnail": "assets/Displaced/thumbnailPhoto.png",
@@ -33,7 +36,20 @@
         "assets/Displaced/displayPhoto_2.png",
         "assets/Displaced/displayPhoto_3.png",
         "assets/Displaced/displayPhoto_4.png"
+      ],
+      "comparisonImages": [
+        "assets/Displaced/Comparison/comparisonPhoto_1.jpg",
+        "assets/Displaced/Comparison/comparisonPhoto_2.jpg",
+        "assets/Displaced/Comparison/comparisonPhoto_3.jpg"
       ]
+    },
+    "tree-falls": {
+      "thumbnail": "assets/TreeFalls/thumbnailPhoto.png",
+      "displayImages": [
+        "assets/TreeFalls/displayPhoto_1.png",
+        "assets/TreeFalls/displayPhoto_2.png"
+      ],
+      "comparisonImages": []
     }
   }
 }
