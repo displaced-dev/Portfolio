@@ -296,7 +296,7 @@ const projects = [
                             "blocks": [
                                 {
                                     "type": "text",
-                                    "body": "One of the largest pieces of inspiration for the Design of the mechanic is the game Titanfall 2, and the specific mechanic from the level Effect and Cause, commonly known as the \"Time Travel Mission\". \n\nBeing able to swap between two variations of the same map, and maneuver through the level was not only jaw dropping, but could create some genuinely interesting interactions between the player mechanics, but the map design as well. It was unfortunate however to see a pretty toned down, and ultimately a different thing entirely in the multiplayer side. I noted a few reasons why.\n\n- Players move so fast that having to maintain track of players in the same world was already hard enough\n- Being a giant, not only makes you a large target, but also creates large blind spots\n- The maps are generally quite open, meaning the linear effect that can be catered in the single player mission is much harder\n- It's the point of the game.\n\nSo I asked myself, what if it was, I would need to make a more toned down, smaller area for players to swap between these two dimensions, and have it be the focus of the game. "
+                                    "body": "One of the largest sources of inspiration for the Design of the mechanic is the game Titanfall 2, and the specific mechanic from the level Effect and Cause, commonly known as the \"Time Travel Mission\". \n\nBeing able to swap between two variations of the same map and maneuver through the level was not only jaw-dropping, but could create some genuinely interesting interactions between the player mechanics and the map design as well. It was unfortunate, however, to see a pretty toned-down, and ultimately a different thing entirely, in the multiplayer side. I noted a few reasons why.\n\n- Players move so fast that having to maintain track of players in the same world was already hard enough\n- Being a giant not only makes you a large target, but also creates large blind spots\n- The maps are generally quite open, meaning the linear effect that can't be catered to\n- It's not the point of the game.\n\nSo I asked myself: what if it was? I would need to make a more toned-down, smaller area for players to swap between these two dimensions, and have it be the focus of the game. "
                                 },
                                 {
                                     "type": "video",
@@ -305,16 +305,7 @@ const projects = [
                                 },
                                 {
                                     "type": "text",
-                                    "body": "I had a very clear reference for how it was supposed to work, thus it wasn't long before I was able to concept a basic prototype. With ideas being tested on how the mechanic would manifest for players observing it. Placeable portals were concepted, however with its similarity to Splitgate, and the importance of trying to keep the mechanic as simple as possible, an instant action was selected. "
-                                }
-                            ]
-                        },
-                        {
-                            "title": "Playtesting and Iterating",
-                            "blocks": [
-                                {
-                                    "type": "text",
-                                    "body": ""
+                                    "body": "With a very clear reference for how it was supposed to work, it wasn't long before I was able to produce a basic prototype. Some ideas were tested to see how other players would perceive this mechanic. Placeable portals were conceptualized; however, with its similarity to Splitgate and the importance of trying to keep the mechanic as simple as possible, an instant action was selected."
                                 }
                             ]
                         },
@@ -323,16 +314,39 @@ const projects = [
                             "blocks": [
                                 {
                                     "type": "text",
-                                    "body": ""
+                                    "body": "When designing the experience, it was important to ask: What is a Displaced player doing? How do they move through the battlefield? What does the battlefield look like? What is their objective?\n\nWith this knowledge, it helps create the best experience and creates a set of rules that can later be used to the fullest, or in some cases broken. \n\nMovement:\n- First Person Walking and Jumping\n- Sprinting\n- Sliding\n- Two Charges of Dimension Traversal - Move the player to a duplicate copy of the world with small differences\n- Fatigue - Running or sliding in succession causes that movement tool to be less impactful.\n\nGunplay\n- Unique to their character\n- Not Inaccurate Due to Movement\n- Spread and Recoil\n- No Friendly Fire\n- No Penetration\n- Infinite Reserve Ammo\n\nMap Designs\n- Two Dimensions. \n- Formula: What if X did or didn't happen?\n- Dimension-Specific Obstacles or \"Irregularities\"\n\nObjective\n- Capture Points\n- Payloads\n- Elimination Targets"
                                 }
                             ]
                         },
                         {
-                            "title": "The Sound",
+                            "title": "Extras",
                             "blocks": [
                                 {
                                     "type": "text",
-                                    "body": ""
+                                    "body": "How Much Info Do Players Have?\n\nThe point of swapping Dimensions is to use the lack of your enemies' knowledge of your position to gain tactical advantages. Given that, it was easy to ensure that you knew where your own team was. However, to know if an enemy was there, a lot of back and forth needed to occur. Later, settling on a slight indicator when an enemy is directly atop you. This knowledge doesn't severely change your advantage, but it will alert the enemy if you are directly atop them. "
+                                },
+                                {
+                                    "type": "image",
+                                    "path": "assets/Displaced/Breakdown/breakdown_mudai3u1ojfy.png",
+                                    "caption": "Players See Ghosts of Allies in the Opposing Dimension",
+                                    "mode": "normal",
+                                    "afterPath": "",
+                                    "beforeLabel": "",
+                                    "afterLabel": ""
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "https://youtu.be/5VdWGXD4z-I",
+                                    "caption": "Enemies have a Humm and Yellow Indicator"
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "How Does Sound Work?\n\nUnity has built-in audio; however, its spatialization leaves much to be desired. When a sound is played, it's critical that a player can identify where that sound originated from. Hearing things in a way that flattens it all out to a general direction isn't how we perceive noises. With that knowledge, it was critical to use tools like Wwise to implement spatially aware sound to ensure that sound interacted with the world in an expected and accurate way. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "https://youtu.be/YQDVwip9Qbs",
+                                    "caption": "Wwise Integration"
                                 }
                             ]
                         }
@@ -347,7 +361,7 @@ const projects = [
                             "blocks": [
                                 {
                                     "type": "text",
-                                    "body": "The deign of the characters came from a mix of experience, preference, and necessity.\n\nThe experience I have is from a background in Hero Shooters. The games I have the most hours in is Overwatch, Valorant, and Marvel Rivals. Due to this, it wasn't a stretch for me to design with those games and understand what I would need to have the completed game.\n\nFinally, the reason it needed to be a hero shooter, was because I didn't want to make a plethora of guns, animations, and other elements on a limited budget. The resources I already had access to was a selection of character models, and I chose to make those characters unique and meeting a fantasy, rather than a player's self insert. \n\nThroughout the development of the character's kit's, a lot of issues would arise. The following chapters will break down the character's kits, why the failed, and how they were redesigned. "
+                                    "body": "The design of the characters came from a mix of experience, preference, and necessity.\n\nThe experience I have is from a background in Hero Shooters. The games I have the most hours in are Overwatch, Valorant, and Marvel Rivals. Due to this, it wasn't a stretch for me to design with those games and understand what I would need to have the completed game.\n\nFinally, the reason it needed to be a hero shooter was that I didn't want to make a plethora of guns, animations, and other elements on a limited budget. The resources I already had access to were a selection of character models, and I chose to make those characters unique and meet a fantasy, rather than a player's self-insert. \n\nThroughout the development of the characters' kits, a lot of issues would arise. The following chapters will break down the characters' kits, why they failed, and how they were redesigned. "
                                 }
                             ]
                         },
@@ -356,74 +370,84 @@ const projects = [
                             "blocks": [
                                 {
                                     "type": "text",
-                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nGhant\n\nGhant was an attempt at making my generic character. Someone that didn't have a complex kit, and would allow those with different backgrounds to pickup the unique mechanic without stressing. \n\nHis Ability was to provide an Adrenaline rush, accessing improvements to speed, fire rate, and reload speeds. "
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nGhant\n\nGhant was an attempt at making my generic character. Someone who didn't have a complex kit and would allow those with different backgrounds to pick up the unique mechanic without stress. \n\nHis Ability was to provide an Adrenaline rush, granting improvements to speed, fire rate, and reload speed. "
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/qn4-2uRDmF4",
+                                    "caption": "Ghant Ability Demo"
                                 },
                                 {
                                     "type": "text",
-                                    "body": "His Ultimate was a way to make him a glass cannon. Reducing his health to a low percentage, and boosting his aforementioned stats including regen rate for a duration."
+                                    "body": "His Ultimate was a way to make him a glass cannon. Using it would set his health to a low percentage and boost his aforementioned stats, including regen rate, for a duration.\n\n"
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/tDMltBl_cCk",
+                                    "caption": "Ghant Ultimate Demo"
                                 },
                                 {
                                     "type": "text",
-                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nHuntress\n\nHuntress was designed as someone who would want to focus on one person, and do anything in order to get them. This person would have good target priority, ultimate tracking, and positioning awareness. \n\nHuntress had an increased cooldown on her own ability to swap dimensions, and would thus need to rely more so on her other abilities to get around.\n\nHuntress' ability was Hijack. This ability allows Huntress to walk up to any other person's breach, and hijack it. This would move Huntress to the other dimension, without wasting her person dimension charge. "
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nHuntress\n\nHuntress was designed as someone who would want to focus on one person and do anything in order to get them. This person would have good target priority, ultimate tracking, and positioning awareness. \n\nHuntress had an increased cooldown on her own ability to swap dimensions, and would thus need to rely more on her other abilities to get around.\n\nHuntress' ability was Hijack. This ability allows Huntress to walk up to any other person's breach and hijack it. This would move Huntress to the other dimension without wasting her personal dimension charge. "
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/a1Temvyzu1M",
+                                    "caption": "Huntress Ability Demo"
                                 },
                                 {
                                     "type": "text",
-                                    "body": "Huntress' Ultimate was known as Dimensional Network. This ultimate created a bunch of open breaches, denoted by it's green color. These breaches allowed for the free traversal of anyone. The aim for this ability would be that it either helps huntress chase her targets, or lull them into a false sense of security, taking the breaches, and running right into her. "
-                                },
-                                {
-                                    "type": "text",
-                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nNeya\n\nNeya was for the person who thought they could outplay anyone. Neya's kit offered her ways to bypass the typical rules of the game, at the cost of her own hp. This meant that if you were methodical, you could outplay someone or make a mistake and be their dinner. \n\nNeya's ability granted her the option to bypass the cooldown of her dimension swap, at the cost of the health relational to % of time remaining."
+                                    "body": "Huntress' Ultimate was known as Dimensional Network. This ultimate created a bunch of open breaches, denoted by their green color. These breaches allowed for the free traversal of anyone. The aim of this ability would be that it either help Huntress chase her targets or lull them into a false sense of security by taking the breaches and running right into her. "
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/k7J9ZKcgmN0",
+                                    "caption": "Huntress Ultimate Demo"
                                 },
                                 {
                                     "type": "text",
-                                    "body": "Neya's ultimate was the ability to cloak herself. Note this didn't stop her sounds, however it would be perceived by the enemies the same way her ability looked. This meant that you could make someone think you've changed dimensions by standing quite still. "
-                                },
-                                {
-                                    "type": "text",
-                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nCleave\n\nCleave was designed for the person who may not believe in their ability to take a one on one, but has the analytical brain to scope out an area, to provide intel, and to help their team by arriving at the right time to provide support. \n\nCleave's ability created a copy of himself, that could run around scoping areas out. However this came at the risk of his main body being stationary. For the first few seconds of the drone, Cleave would be invisble, before becoming revealed. At the end of the drone, he would regain control. "
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nNeya\n\nNeya was for the person who thought they could outplay anyone. Neya's kit offered her ways to bypass the typical rules of the game, at the cost of her own HP. This meant that if you were methodical, you could outplay someone or make a mistake and be their dinner. \n\nNeya's ability granted her the option to bypass the cooldown of her dimension swap, at the cost of health relative to % of time remaining."
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/pnuwA0iMHVE",
+                                    "caption": "Neya Ability Demo"
                                 },
                                 {
                                     "type": "text",
-                                    "body": "Cleaves ultimate was quite similar to his ability. He could mix it around which one he chose, however he would have to commit. Using his ultimate would send out a drone, however at the end of which he would be transported to wherever the drone's position ended. This meant players needed to be cautious around his drone, as it could be simply for intel gathering or for rotation."
+                                    "body": "Neya's ultimate was the ability to cloak herself. Note that this didn't stop her sounds; however it would be perceived by the enemies the same way her ability looked. This meant that you could make someone think you've changed dimensions by standing quite still. "
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/kALBOS9FRGw",
+                                    "caption": "Neya Ultimate Demo"
                                 },
                                 {
                                     "type": "text",
-                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nNole\n\nNole was for the person who wanted to take every fight. They could power through and wanted to be the lead of their team. Nole wasn't exceptionally good in any specific fight, but was designed so that that they had a chance in any fight. The skill of the player was what allowed Nole to be a dominant force. \n\nNole's ability was to shift between dimensions and become impervous for a short duration with a slight buff to movement speeds. "
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nCleave\n\nCleave was designed for the person who may not believe in their ability to take a one-on-one, but has the analytical brain to scope out an area, to provide intel, and to help their team by arriving at the right time to provide support. \n\nCleave's ability created a copy of himself that could run around scoping areas out. However, this came at the risk of his main body being stationary. For the first few seconds of the drone, Cleave would be invisible before becoming revealed. At the end of the drone, he would regain control. "
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/f_8HF2CEwM8",
+                                    "caption": "Cleave Ability Demo"
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "Cleave's ultimate was quite similar to his ability. He could mix it around which one he chose; however, he would have to commit. Using his ultimate would send out a drone; however, at the end of it, he would be transported to wherever the drone's position ended. This meant players needed to be cautious around his drone, as it could be simply for intel gathering or for rotation."
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "https://youtu.be/YiXBE5G63ug",
+                                    "caption": "Cleave Ultimate Demo"
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "--------------------------------------------------------------------------------------------------------------------------\nNole\n\nNole was for the person who wanted to take every fight. They could power through and wanted to be the lead of their team. Nole wasn't exceptionally good in any specific fight, but was designed so that they had a chance in any fight. The skill of the player was what allowed Nole to be a dominant force. \n\nNole's ability was to shift between dimensions and become impervious for a short duration, with a slight buff to movement speed. "
+                                },
+                                {
+                                    "type": "video",
+                                    "url": "https://youtu.be/QSKBu4mnQG4",
+                                    "caption": "Nole Ability Demo"
                                 },
                                 {
                                     "type": "text",
@@ -431,26 +455,41 @@ const projects = [
                                 },
                                 {
                                     "type": "video",
-                                    "url": "",
-                                    "caption": ""
+                                    "url": "https://youtu.be/CJAmMwv7cVM",
+                                    "caption": "Nole Ultimate Demo"
                                 }
                             ]
                         },
                         {
-                            "title": "Why They Failed",
+                            "title": "They Failed but Were Reborn",
                             "blocks": [
                                 {
                                     "type": "text",
-                                    "body": ""
-                                }
-                            ]
-                        },
-                        {
-                            "title": "The Redesigns",
-                            "blocks": [
+                                    "body": "Throughout the game's playtesting phases, complaints about characters began to arise.\n\nWhen a complaint would arise, some of the questions that we'd ask are:\n- Is this someone who doesn't like the character's goal?\n- Is this an issue or a design choice?\n- Is this an issue with the Numbers or the Concept\n\nWhile some issues would boil down to tuning within their numbers, others were issues with the design of the character, and a lot of characters fell for the same issue.\n\nTheir Ultimates were just their Abilities with a boost.\n\nThis could be seen as normal; however, I believe it is a problem. An ultimate isn't just a supercharged ability, but rather the embodiment of the character fantasy, supercharged. For example: Reinhardt's Ultimate isn't a bigger shield; it's the embodiment of a strong man \"Bringing The Hammer Down,\" causing those in his wake to come crashing down. Sova's Ultimate is closer to a supercharged shock dart; however, it's entirely different in its play and counterplay."
+                                },
                                 {
                                     "type": "text",
-                                    "body": ""
+                                    "body": "When going into the redesigns, it was important to ask for player feedback. While they may not help with finding the exact solution, they are often great at identifying a problem. \n\nA new philosophy was devised for designing characters and their kits.\n1. Supercharging isn't an issue; however, it must be because the player used their PASSIVE in tandem with their Ability\n2. Ultimates are not just what the character already does but more. Rather, they are the embodiment of the action that the character's fantasy would take when the chips are down.\n3. The weapons characters use will be tied to the character, to better facilitate this direction.\n\nThe following are redesigned concepts of the character's kits and abilities. \n--------------------------------------------------------------------------------------------------------------------------"
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "[Ghant]: SMG-Like, Short-Range Hit-and-Run\n\nFantasy: A player who wants speed, movement, and the fight to never stop. A Ghant player would want to be able to pick up the kit and fight. \n\nPassive: Numb: In a state of constant over-activity, Ghant doesn’t experience fatigue from jumping or sliding.\nAbility: Adrenaline: Adrenaline spikes, and Ghant’s movement speed, fire rate, and reload speed follow suit\nUltimate: Overdose: Grants Ghant the ability to swap between dimensions limitlessly and freely, as he is no longer grounded in reality. "
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "[Allele]: Weak AR\n\nFantasy: Control over CC, whether dishing it out or receiving it. This player wants to manipulate the position of others and have control of the battlefield by manipulating the position of others.\n\nPassive: Dimensional Redirect: Any forced teleportation where Allele would be teleported by someone else; Allele will be instead moved to her pocket dimension (Requires being recharged)\nAbility: Collapse: Redirect a portal towards the pocket dimension however, the duration you can stay is severely diminished compared to the Ultimate\nUltimate: Pocket Dimension: Rapidly expanding outward; if touched on that plane of reality, be pulled into a dimension where their team has a buff lockout and a longer duration stay before being forced out."
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "[Nole]: A charge shot/windup. Causes quick damage by landing the shot, but is punished in a continuous environment. \n\nFantasy: This player wishes to use their knowledge of timing, positioning, pathing, and cooldowns to create the best scenario for them to win. This player would thrive when getting the drop on someone.\n\nPassive: Spectral Watcher: See people for two seconds after their teleport\nAbility: Shooting Gallery: Huntress places a tether that allows her to shoot the ghosts of other players within the radius of the tether. If the tether breaks, it pulls the Huntress into the dimension in which she tethered. She can break it manually; it can be broken by others, and if she leaves the area, it auto breaks (great tool if someone's chasing her).\nUltimate: Strike Zone: Place an object in world space, denoted by a sphere. Anyone in the other dimension who enters this sphere is ripped into Huntress' current dimension."
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "[Huntress]: Semi-Auto: Ambush Quick Pick, not Spam (Ashe / Guardian)\n\nFantasy: This player wishes to simply target someone and take them out. They thrive in a chase and love to isolate a one-on-one. \n\nPassive: Hunter’s Retreat: Double jump\nAbility: Hijack: For a short duration after someone teleports away, walk up to and through their portals; slight damage buff. \nUltimate: Rift Gateway: Using your stored charge, quickly connect two points in both dimensions, creating a shortcut for you and your allies. "
+                                },
+                                {
+                                    "type": "text",
+                                    "body": "[Cleave]: Minigun with mad useless falloff\n\nFantasy: This is the type of player who wishes to hold the front line. This player wishes to be in the lead and help the team navigate and control the battlefield. \n\nPassive: Enhanced regeneration\nAbility: Butterfly Effect: Swap barriers and objects between dimensions to create opportunities, or prevent others from doing so.\nUltimate: Grandfather Paradox: Create a bubble of space-time preventing abilities and bullets alike from entering."
                                 }
                             ]
                         }
