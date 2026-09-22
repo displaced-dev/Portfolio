@@ -1,4 +1,15 @@
+// Renders the page sections and the project modal (Overview + In-Depth).
+
 let modal = null;
+
+const performanceMetrics = {
+    initStart: 0,
+    initEnd: 0,
+    mediaLoadTime: 0,
+    renderTime: 0
+};
+
+/* ---------- Boot ---------- */
 
 async function bootstrapPrecache() {
     const isLocalHost =
@@ -8,7 +19,6 @@ async function bootstrapPrecache() {
 
     window.IS_LOCAL = isLocalHost;
     window.USE_PRECACHE = false;
-
     if (isLocalHost) return;
 
     try {
@@ -34,8 +44,9 @@ function injectDevManifestButton() {
     document.body.appendChild(btn);
 }
 
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async () => {
     await bootstrapPrecache();
+    performanceMetrics.initStart = performance.now();
 
     initializeNavigation();
     renderAbout();
@@ -43,55 +54,40 @@ document.addEventListener('DOMContentLoaded', async function () {
     initializeTechStack();
     initializeModal();
     initializeScrollEffects();
-
     showProjectsLoading();
 
     try {
+        const mediaStart = performance.now();
         await initializeAllProjectMedia();
-        initializeProjects();
+        performanceMetrics.mediaLoadTime = Math.round(performance.now() - mediaStart);
+
+        const renderStart = performance.now();
+        renderProjects();
+        performanceMetrics.renderTime = Math.round(performance.now() - renderStart);
+        performanceMetrics.initEnd = performance.now();
     } catch (error) {
         console.error('Failed to initialize portfolio:', error);
-        initializeProjects();
+        renderProjects();
     }
 
     if (window.IS_LOCAL) injectDevManifestButton();
 });
 
-function showProjectsLoading() {
-    const projectsGrid = document.getElementById('projectsGrid');
-    if (!projectsGrid) return;
-    projectsGrid.innerHTML = `
-        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-            <div style="display: inline-block; width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid #dc2626; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            <p style="margin-top: 1rem; color: #666;">Loading projects...</p>
-        </div>
-        <style>
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        </style>
-    `;
-}
+/* ---------- Navigation ---------- */
 
 function initializeNavigation() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
 
     if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
     }
 
-    navLinks.forEach(link => {
+    document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-            const targetSection = document.querySelector(link.getAttribute('href'));
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             if (navMenu) navMenu.classList.remove('active');
         });
     });
@@ -99,35 +95,66 @@ function initializeNavigation() {
     const heroScroll = document.querySelector('.hero-scroll');
     if (heroScroll) {
         heroScroll.addEventListener('click', () => {
-            const aboutSection = document.querySelector('#about');
-            if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
+            const about = document.querySelector('#about');
+            if (about) about.scrollIntoView({ behavior: 'smooth' });
         });
     }
 }
 
+/* ---------- Static sections ---------- */
+
 function renderAbout() {
     if (typeof about === 'undefined') return;
 
-    const bulletsContainer = document.getElementById('aboutBullets');
-    if (bulletsContainer) {
-        bulletsContainer.innerHTML = about.bullets.map(b => `
+    const bullets = document.getElementById('aboutBullets');
+    if (bullets) {
+        bullets.innerHTML = about.bullets.map(b => `
             <div class="location">
                 <i class="fas fa-circle"></i>
                 <span>${b}</span>
-            </div>
-        `).join('');
+            </div>`).join('');
     }
 
     const resumeLink = document.getElementById('resumeLink');
-    if (resumeLink) resumeLink.setAttribute('href', about.resumePath);
+    if (resumeLink) {
+        resumeLink.setAttribute('href', about.resumePath);
+        resumeLink.insertAdjacentHTML('afterend', (about.links || [])
+            .filter(link => link.url)
+            .map(link => `
+                <a class="about-link" href="${link.url}" target="_blank" rel="noopener noreferrer">
+                    <i class="${linkIcon(link.url)}"></i>
+                    <span>${link.label || linkHost(link.url)}</span>
+                </a>`).join(''));
+    }
 
     const headshot = document.getElementById('aboutHeadshot');
     if (headshot) headshot.setAttribute('src', about.headshot);
 }
 
+// Picks a Font Awesome icon from the link's address.
+function linkIcon(url) {
+    const icons = [
+        ['itch.io', 'fab fa-itch-io'],
+        ['linkedin.com', 'fab fa-linkedin'],
+        ['github.com', 'fab fa-github'],
+        ['youtube.com', 'fab fa-youtube'],
+        ['youtu.be', 'fab fa-youtube'],
+        ['steampowered.com', 'fab fa-steam'],
+        ['twitter.com', 'fab fa-twitter'],
+        ['x.com', 'fab fa-twitter'],
+        ['artstation.com', 'fab fa-artstation'],
+        ['mailto:', 'fas fa-envelope'],
+    ];
+    const match = icons.find(([needle]) => url.toLowerCase().includes(needle));
+    return match ? match[1] : 'fas fa-link';
+}
+
+function linkHost(url) {
+    try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return url; }
+}
+
 function renderExperience() {
     if (typeof experience === 'undefined') return;
-
     const timeline = document.getElementById('experienceTimeline');
     if (!timeline) return;
 
@@ -137,26 +164,18 @@ function renderExperience() {
             <div class="timeline-content">
                 <h3>${entry.title}</h3>
                 <h4>${entry.organization}</h4>
-                <div class="project-tech">
-                    ${entry.tech.map(t => `<span class="tech-tag">${t}</span>`).join('')}
-                </div>
+                <div class="project-tech">${tagsHtml(entry.tech)}</div>
                 <p>${entry.description}</p>
-                <ul>
-                    ${entry.bullets.map(b => `<li>${b}</li>`).join('')}
-                </ul>
+                <ul>${entry.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
             </div>
-        </div>
-    `).join('');
+        </div>`).join('');
 }
 
 function initializeTechStack() {
     const techGrid = document.getElementById('techGrid');
     if (!techGrid) return;
 
-    const techFragment = document.createDocumentFragment();
-    techStack.forEach(tech => techFragment.appendChild(createTechItem(tech)));
-    techGrid.appendChild(techFragment);
-
+    techGrid.innerHTML = techStack.map(createTechItem).join('');
     techGrid.addEventListener('click', (e) => {
         if (e.target.closest('.tech-item')) {
             document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
@@ -165,140 +184,93 @@ function initializeTechStack() {
 }
 
 function createTechItem(tech) {
-    const techItem = document.createElement('div');
-    techItem.className = 'tech-item';
-
-    const isImage = tech.icon.includes('/') || tech.icon.includes('.') ||
-                   (!tech.icon.startsWith('fa') && !tech.icon.includes('fa-'));
-
-    const iconHtml = isImage
-        ? `<img src="${tech.icon}"
-                alt="${tech.name} icon"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';"
-                onload="this.nextElementSibling.style.display='none';" />
-           <i class="fas fa-code" style="display:none"></i>`
-        : `<i class="${tech.icon}"></i>`;
-
-    techItem.innerHTML = `${iconHtml}<h4>${tech.name}</h4>`;
-    return techItem;
+    const isFontAwesome = /^fa[bsr]? /.test(tech.icon) || tech.icon.startsWith('fa-');
+    const icon = isFontAwesome
+        ? `<i class="${tech.icon}"></i>`
+        : `<img src="${tech.icon}" alt="${tech.name} icon" onerror="this.nextElementSibling.hidden=false; this.remove();"><i class="fas fa-code" hidden></i>`;
+    return `<div class="tech-item">${icon}<h4>${tech.name}</h4></div>`;
 }
 
-function initializeProjects() {
-    renderProjects();
+function tagsHtml(list) {
+    return (list || []).map(t => `<span class="tech-tag">${t}</span>`).join('');
+}
+
+/* ---------- Project cards ---------- */
+
+function showProjectsLoading() {
+    const grid = document.getElementById('projectsGrid');
+    if (grid) {
+        grid.innerHTML = `<div class="projects-loading"><div class="spinner"></div><p>Loading projects...</p></div>`;
+    }
 }
 
 function renderProjects() {
-    const projectsGrid = document.getElementById('projectsGrid');
-    if (!projectsGrid) return;
+    const host = document.getElementById('projectsGrid');
+    if (!host) return;
 
     const mainProjects = projects.filter(p => p.type !== 'gamejam');
     const gameJams = projects.filter(p => p.type === 'gamejam');
+    const gridHtml = list => `<div class="projects-grid">${list.map((p, i) => createProjectCard(p, i)).join('')}</div>`;
 
-    const wrapper = document.createDocumentFragment();
+    host.innerHTML =
+        (mainProjects.length ? gridHtml(mainProjects) : '') +
+        (gameJams.length ? `<div class="subsection-label">Game Jams</div>${gridHtml(gameJams)}` : '');
 
-    if (mainProjects.length) {
-        const grid = document.createElement('div');
-        grid.className = 'projects-grid';
-        mainProjects.forEach((project, i) => {
-            const card = createProjectCard(project);
-            card.style.animationDelay = `${i * 0.1}s`;
-            card.classList.add('fade-in');
-            grid.appendChild(card);
-        });
-        wrapper.appendChild(grid);
-    }
-
-    if (gameJams.length) {
-        const label = document.createElement('div');
-        label.className = 'subsection-label';
-        label.textContent = 'Game Jams';
-        wrapper.appendChild(label);
-
-        const grid = document.createElement('div');
-        grid.className = 'projects-grid';
-        gameJams.forEach((project, i) => {
-            const card = createProjectCard(project);
-            card.style.animationDelay = `${i * 0.1}s`;
-            card.classList.add('fade-in');
-            grid.appendChild(card);
-        });
-        wrapper.appendChild(grid);
-    }
-
-    projectsGrid.innerHTML = '';
-    projectsGrid.appendChild(wrapper);
-
-    projectsGrid.addEventListener('click', (e) => {
-        const projectCard = e.target.closest('.project-card');
-        if (projectCard) {
-            const project = projects.find(p => p.id === projectCard.dataset.projectId);
+    if (!host.dataset.bound) {
+        host.dataset.bound = 'true';
+        host.addEventListener('click', (e) => {
+            const card = e.target.closest('.project-card');
+            const project = card && projects.find(p => p.id === card.dataset.projectId);
             if (project) openProjectModal(project);
-        }
-    });
+        });
+    }
 }
 
-function createProjectCard(project) {
-    const projectCard = document.createElement('div');
-    projectCard.className = 'project-card';
-    projectCard.dataset.projectId = project.id;
-
-    const imageContent = project.thumbnailUrl
-        ? `<img src="${project.thumbnailUrl}"
-                alt="${project.title}"
-                style="width: 100%; height: 100%; object-fit: cover;"
-                loading="lazy"
-                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-           <i class="${project.image}" style="display: none;"></i>`
+function createProjectCard(project, order) {
+    const image = project.thumbnailUrl
+        ? `<img src="${project.thumbnailUrl}" alt="${project.title}" loading="lazy" onerror="this.nextElementSibling.hidden=false; this.remove();"><i class="${project.image}" hidden></i>`
         : `<i class="${project.image}"></i>`;
 
     const isJam = project.type === 'gamejam';
-    const durationHtml = isJam && project.duration
+    const duration = isJam && project.duration
         ? `<div class="duration-tag"><i class="fas fa-clock"></i> ${project.duration}</div>`
         : '';
 
-    projectCard.innerHTML = `
-        <div class="project-image">
-            ${imageContent}
-        </div>
-        <div class="project-content">
-            <div class="project-header">
-                <h3>${project.title}</h3>
-                ${isJam ? '<span class="gamejam-badge">Game Jam</span>' : ''}
+    return `
+        <div class="project-card fade-in" data-project-id="${project.id}" style="animation-delay:${order * 0.1}s">
+            <div class="project-image">${image}</div>
+            <div class="project-content">
+                <div class="project-header">
+                    <h3>${project.title}</h3>
+                    ${isJam ? '<span class="gamejam-badge">Game Jam</span>' : ''}
+                </div>
+                ${duration}
+                <p>${project.description}</p>
+                <div class="project-tech">${tagsHtml(project.tech)}</div>
             </div>
-            ${durationHtml}
-            <p>${project.description}</p>
-            <div class="project-tech">
-                ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-            </div>
-        </div>
-    `;
-    return projectCard;
+        </div>`;
 }
+
+/* ---------- Modal ---------- */
 
 function initializeModal() {
     modal = document.getElementById('projectModal');
     if (!modal) return;
 
-    const closeBtn = modal.querySelector('.close');
-    if (closeBtn) closeBtn.addEventListener('click', closeProjectModal);
+    modal.querySelector('.close').addEventListener('click', closeProjectModal);
+    window.addEventListener('click', (e) => { if (e.target === modal) closeProjectModal(); });
 
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) closeProjectModal();
+    modal.querySelector('.modal-header').addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-btn')) switchModalTab(e.target.dataset.tab);
     });
 
-    const modalHeader = modal.querySelector('.modal-header');
-    if (modalHeader) {
-        modalHeader.addEventListener('click', (e) => {
-            if (e.target.classList.contains('tab-btn')) {
-                switchModalTab(e.target.dataset.tab);
-            }
-        });
-    }
+    document.getElementById('details').addEventListener('click', (e) => {
+        const btn = e.target.closest('.page-btn');
+        if (btn) showDetailsPage(parseInt(btn.dataset.page, 10));
+    });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.style.display === 'block') {
-            closeProjectModal();
-        }
+        if (e.key === 'Escape' && modal.style.display === 'block') closeProjectModal();
     });
 }
 
@@ -307,163 +279,133 @@ function openProjectModal(project) {
 
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
+    document.getElementById('modalTitle').textContent = project.title;
 
-    const modalTitle = document.getElementById('modalTitle');
-    if (modalTitle) modalTitle.textContent = project.title;
-
-    const detailsTabBtn = modal.querySelector('.tab-btn[data-tab="details"]');
-    if (detailsTabBtn) {
-        detailsTabBtn.style.display = (project.detailsEnabled === false) ? 'none' : '';
-    }
+    // detailsEnabled defaults to true when undefined so legacy data keeps working.
+    const detailsTab = modal.querySelector('.tab-btn[data-tab="details"]');
+    if (detailsTab) detailsTab.hidden = project.detailsEnabled === false;
 
     switchModalTab('overview');
-
     requestAnimationFrame(() => populateModalContent(project));
 }
 
 function populateModalContent(project) {
-    const overviewContent = document.getElementById('overview');
-    if (overviewContent) overviewContent.innerHTML = createOverviewContent(project);
+    document.getElementById('overview').innerHTML = createOverviewContent(project);
+    document.getElementById('details').innerHTML =
+        project.detailsEnabled === false ? '' : createDetailsContent(project);
 
-    const detailsContent = document.getElementById('details');
-    if (detailsContent) {
-        detailsContent.innerHTML = (project.detailsEnabled === false)
-            ? ''
-            : createDetailsContent(project);
-    }
-
-    if (project.media && project.media.length > 1) {
-        setTimeout(() => initializeMediaShowcase(project.media), 0);
-    }
-
-    if (project.details.comparison.media && project.details.comparison.media.length > 1) {
-        setTimeout(() => initializeComparisonGallery(project.details.comparison.media), 0);
-    }
-}
-
-function createOverviewContent(project) {
-    const playableBar = project.overview.status === 'Released' && project.overview.storeUrl
-        ? `<div class="playable-bar">
-               <span>This experience is playable</span>
-               <a href="${project.overview.storeUrl}" target="_blank" rel="noopener noreferrer" class="playable-bar-link">Play →</a>
-           </div>`
-        : '';
-
-    return `
-        ${playableBar}
-        ${createMediaShowcase(project.media, project.title)}
-
-        <p class="modal-description">${project.overview.description}</p>
-
-        <div class="modal-info-grid">
-            <div class="modal-info-item">
-                <h4>Platforms</h4>
-                <p>${project.overview.platforms.join(', ')}</p>
-            </div>
-            <div class="modal-info-item">
-                <h4>Status</h4>
-                <p>${project.overview.status}</p>
-            </div>
-            <div class="modal-info-item">
-                <h4>Role</h4>
-                <p>${project.overview.role}</p>
-            </div>
-        </div>
-
-        <h4>Key Features</h4>
-        <ul class="modal-features">
-            ${project.overview.features.map(feature => `<li>${feature}</li>`).join('')}
-        </ul>
-
-        <div class="modal-tech-stack">
-            <h4>Technology Stack</h4>
-            <div class="modal-tech-tags">
-                ${project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
-            </div>
-        </div>
-    `;
-}
-
-function createDetailsContent(project) {
-    return `
-        <div class="details-section">
-            <h4>Challenges</h4>
-            <ul>
-                ${project.details.challenges.map(challenge => `<li>${challenge}</li>`).join('')}
-            </ul>
-        </div>
-
-        <div class="details-section">
-            <h4>Solutions</h4>
-            <ul>
-                ${project.details.solutions.map(solution => `<li>${solution}</li>`).join('')}
-            </ul>
-        </div>
-
-        <div class="details-section">
-            <h4>Lessons Learned</h4>
-            <ul>
-                ${project.details.lessons.map(lesson => `<li>${lesson}</li>`).join('')}
-            </ul>
-        </div>
-
-        ${createComparisonSection(project.details.comparison)}
-    `;
-}
-
-function createComparisonSection(comparison) {
-    return `
-        <div class="comparison-section">
-            <h4>${comparison.title}</h4>
-
-            ${createComparisonGallery(comparison.media, comparison.title)}
-
-            <div class="comparison-analysis">
-                <div class="analysis-grid">
-                    <div class="analysis-side our-approach">
-                        <h5 class="analysis-side-title">${comparison.analysis.ourApproach.title}</h5>
-                        <p class="analysis-description">${comparison.analysis.ourApproach.description}</p>
-                        <ul class="analysis-points success">
-                            ${comparison.analysis.ourApproach.whatWorked.map(point => `<li>${point}</li>`).join('')}
-                        </ul>
-                    </div>
-
-                    <div class="analysis-side traditional-approach">
-                        <h5 class="analysis-side-title">${comparison.analysis.traditionalApproach.title}</h5>
-                        <p class="analysis-description">${comparison.analysis.traditionalApproach.description}</p>
-                        <ul class="analysis-points limitations">
-                            ${comparison.analysis.traditionalApproach.whatDidntWork.map(point => `<li>${point}</li>`).join('')}
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    if (project.media && project.media.length > 1) initializeMediaShowcase(project.media);
 }
 
 function switchModalTab(tabName) {
     if (!modal) return;
-
-    modal.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    const activeTabBtn = modal.querySelector(`[data-tab="${tabName}"]`);
-    if (activeTabBtn) activeTabBtn.classList.add('active');
-
-    modal.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    const activeContent = document.getElementById(tabName);
-    if (activeContent) activeContent.classList.add('active');
-
-    const modalContent = modal.querySelector('.modal-content');
-    if (modalContent) modalContent.scrollTop = 0;
+    modal.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tabName));
+    modal.querySelectorAll('.tab-content').forEach(el => el.classList.toggle('active', el.id === tabName));
 }
 
 function closeProjectModal() {
     if (!modal) return;
-
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
-
     resetMediaShowcase();
 }
+
+/* ---------- Overview tab ---------- */
+
+function createOverviewContent(project) {
+    const o = project.overview;
+    const storeButton = o.status === 'Released' && o.storeUrl
+        ? `<div class="store-cta">
+               <a class="store-btn" href="${o.storeUrl}" target="_blank" rel="noopener noreferrer">
+                   <i class="fas fa-external-link-alt"></i> Play Now
+               </a>
+           </div>`
+        : '';
+
+    return `
+        ${createMediaShowcase(project.media, project.title)}
+        <p class="modal-description">${o.description}</p>
+        <div class="modal-info-grid">
+            <div class="modal-info-item"><h4>Platforms</h4><p>${o.platforms.join(', ')}</p></div>
+            <div class="modal-info-item"><h4>Status</h4><p>${o.status}</p></div>
+            <div class="modal-info-item"><h4>Role</h4><p>${o.role}</p></div>
+        </div>
+        ${storeButton}
+        <h4>Key Features</h4>
+        <ul class="modal-features">${o.features.map(f => `<li>${f}</li>`).join('')}</ul>
+        <div class="modal-tech-stack">
+            <h4>Technology Stack</h4>
+            <div class="modal-tech-tags">${tagsHtml(project.tech)}</div>
+        </div>`;
+}
+
+/* ---------- In-Depth tab ---------- */
+
+// The In-Depth tab is a set of pages: an optional Summary (challenges /
+// solutions / lessons) followed by each breakdown page from the admin tool.
+function createDetailsContent(project) {
+    const d = project.details || {};
+    const pages = [];
+
+    const summary = [
+        ['Challenges', d.challenges],
+        ['Solutions', d.solutions],
+        ['Lessons Learned', d.lessons]
+    ].filter(([, items]) => items && items.length);
+
+    if (summary.length) {
+        pages.push({
+            title: 'Summary',
+            html: summary.map(([heading, items]) => `
+                <div class="details-section">
+                    <h4>${heading}</h4>
+                    <ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>
+                </div>`).join('')
+        });
+    }
+
+    (d.pages || []).forEach(page => {
+        pages.push({ title: page.title || 'Untitled', html: breakdownPageHtml(page) });
+    });
+
+    if (!pages.length) return `<p class="details-empty">A breakdown for this project is on its way.</p>`;
+
+    const nav = pages.length > 1
+        ? `<div class="page-nav">${pages.map((p, i) =>
+            `<button class="page-btn${i === 0 ? ' active' : ''}" data-page="${i}">${p.title}</button>`).join('')}</div>`
+        : '';
+
+    return nav + pages.map((p, i) =>
+        `<div class="details-page${i === 0 ? ' active' : ''}" data-page="${i}">${p.html}</div>`).join('');
+}
+
+function breakdownPageHtml(page) {
+    const figures = (page.images || []).map(img => `
+        <figure class="breakdown-figure">
+            <div class="media-frame">
+                ${captionHtml(img.caption)}
+                <img src="${img.path}" alt="${attr(img.caption || page.title)}" loading="lazy" onerror="this.closest('figure').remove()">
+            </div>
+        </figure>`).join('');
+
+    return `
+        <article class="breakdown">
+            ${page.title ? `<h3 class="breakdown-title">${page.title}</h3>` : ''}
+            ${page.body ? `<div class="breakdown-body">${page.body.trim()}</div>` : ''}
+            ${figures}
+        </article>`;
+}
+
+function showDetailsPage(index) {
+    const details = document.getElementById('details');
+    details.querySelectorAll('.page-btn').forEach(btn => btn.classList.toggle('active', +btn.dataset.page === index));
+    details.querySelectorAll('.details-page').forEach(el => el.classList.toggle('active', +el.dataset.page === index));
+
+    const nav = details.querySelector('.page-nav');
+    if (nav) nav.scrollIntoView({ block: 'nearest' });
+}
+
+/* ---------- Scroll effects ---------- */
 
 function initializeScrollEffects() {
     const navbar = document.querySelector('.navbar');
@@ -474,21 +416,12 @@ function initializeScrollEffects() {
         const scrollY = window.scrollY;
 
         if (navbar) {
-            if (scrollY > 50) {
-                navbar.classList.add('visible');
-                navbar.style.backgroundColor = scrollY > 100
-                    ? 'rgba(12, 12, 12, 0.97)'
-                    : 'rgba(12, 12, 12, 0.90)';
-            } else {
-                navbar.classList.remove('visible');
-                navbar.style.backgroundColor = 'rgba(12, 12, 12, 0.90)';
-            }
+            navbar.classList.toggle('visible', scrollY > 50);
+            navbar.style.backgroundColor = scrollY > 100 ? 'rgba(12, 12, 12, 0.97)' : 'rgba(12, 12, 12, 0.90)';
         }
-
         if (heroBackground && scrollY < window.innerHeight) {
             heroBackground.style.transform = `translateY(${scrollY * 0.5}px)`;
         }
-
         ticking = false;
     }
 
@@ -498,7 +431,6 @@ function initializeScrollEffects() {
             ticking = true;
         }
     }, { passive: true });
-
     handleScroll();
 
     const observer = new IntersectionObserver((entries) => {
@@ -513,3 +445,7 @@ function initializeScrollEffects() {
     document.querySelectorAll('section').forEach(section => observer.observe(section));
 }
 
+window.getPerformanceMetrics = () => ({
+    ...performanceMetrics,
+    totalTime: performanceMetrics.initEnd - performanceMetrics.initStart
+});

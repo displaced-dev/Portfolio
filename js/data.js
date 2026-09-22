@@ -6,9 +6,9 @@ const techStack = [
         "name": "Unity",
         "icon": "fab fa-unity",
         "projects": [
-            "mr-bubbles",
-            "strictly-human",
             "from-the-ashes",
+            "strictly-human",
+            "mr-bubbles",
             "displaced"
         ]
     },
@@ -44,9 +44,9 @@ const techStack = [
         "name": "C#",
         "icon": "assets/icons/csharpGray.png",
         "projects": [
-            "mr-bubbles",
-            "strictly-human",
             "from-the-ashes",
+            "strictly-human",
+            "mr-bubbles",
             "displaced"
         ]
     },
@@ -62,8 +62,8 @@ const techStack = [
         "name": "FL Studio",
         "icon": "assets/icons/FLGray.png",
         "projects": [
-            "mr-bubbles",
-            "strictly-human"
+            "strictly-human",
+            "mr-bubbles"
         ]
     },
     {
@@ -83,11 +83,6 @@ const imageInventory = {
             "assets/Displaced/displayPhoto_2.png",
             "assets/Displaced/displayPhoto_3.png",
             "assets/Displaced/displayPhoto_4.png"
-        ],
-        "comparisonImages": [
-            "assets/Displaced/Comparison/comparisonPhoto_1.jpg",
-            "assets/Displaced/Comparison/comparisonPhoto_2.jpg",
-            "assets/Displaced/Comparison/comparisonPhoto_3.jpg"
         ]
     },
     "mr-bubbles": {
@@ -96,8 +91,7 @@ const imageInventory = {
             "assets/MrBubbles/displayPhoto_1.png",
             "assets/MrBubbles/displayPhoto_2.png",
             "assets/MrBubbles/displayPhoto_3.png"
-        ],
-        "comparisonImages": []
+        ]
     },
     "from-the-ashes": {
         "thumbnail": "assets/FromTheAshes/thumbnailPhoto.png",
@@ -105,8 +99,7 @@ const imageInventory = {
             "assets/FromTheAshes/displayPhoto_1.png",
             "assets/FromTheAshes/displayPhoto_2.png",
             "assets/FromTheAshes/displayPhoto_3.png"
-        ],
-        "comparisonImages": []
+        ]
     },
     "strictly-human": {
         "thumbnail": "assets/StrictlyHumanAffair/thumbnailPhoto.jpeg",
@@ -115,12 +108,91 @@ const imageInventory = {
             "assets/StrictlyHumanAffair/displayPhoto_2.jpg",
             "assets/StrictlyHumanAffair/displayPhoto_3.jpg",
             "assets/StrictlyHumanAffair/displayPhoto_4.jpg"
-        ],
-        "comparisonImages": []
+        ]
     }
 };
 
 const projects = [
+    {
+        "id": "from-the-ashes",
+        "assetFolder": "FromTheAshes",
+        "type": "gamejam",
+        "duration": "1 Week",
+        "youtubeUrls": [],
+        "title": "From The Ashes",
+        "description": "A Multiplayer Horror, scour the area, and return safely.",
+        "image": "fas fa-gamepad",
+        "thumbnailUrl": null,
+        "tech": [
+            "Unity",
+            "C#"
+        ],
+        "featured": false,
+        "detailsEnabled": true,
+        "media": [],
+        "overview": {
+            "description": "A world is over-run by a new type of creatures, known as Phons. They are spreading wildly. The military sends troops to ground zero, to collect a sample.\n\n\nEach player must enter ground zero. Find the sample, and get out. However it won't be that simple.",
+            "features": [
+                "CO-OP",
+                "First Person Combat"
+            ],
+            "platforms": [
+                "Windows",
+                "Mac",
+                "Linux"
+            ],
+            "status": "Released",
+            "role": "Lead Dev",
+            "storeUrl": "https://dev-stynt.itch.io/from-the-ashes-they-rise"
+        },
+        "details": {
+            "challenges": [],
+            "solutions": [],
+            "lessons": [],
+            "pages": []
+        },
+        "mediaCaptions": {}
+    },
+    {
+        "id": "strictly-human",
+        "assetFolder": "StrictlyHumanAffair",
+        "type": "gamejam",
+        "duration": "72 Hours",
+        "youtubeUrls": [],
+        "title": "A Strictly Human Affair",
+        "description": "A first person, social puzzle game. Explore the train, collect items, and learn the secrets each passenger holds. ",
+        "image": "fas fa-gamepad",
+        "thumbnailUrl": null,
+        "tech": [
+            "Unity",
+            "C#",
+            "FL Studio"
+        ],
+        "featured": false,
+        "detailsEnabled": false,
+        "media": [],
+        "overview": {
+            "description": "When the train conductor is found brutally murdered, Sheriff Horace; trapped in a rolling prison alongside six other passengers, must reveal the monstrous killer from behind their mask.",
+            "features": [
+                "Narrative"
+            ],
+            "platforms": [
+                "Windows",
+                "Linux",
+                "Mac"
+            ],
+            "status": "Released",
+            "role": "Developer",
+            "storeUrl": "https://ratth3cat.itch.io/a-strictly-human-affair"
+        },
+        "details": {
+            "challenges": [],
+            "solutions": [],
+            "lessons": [],
+            "pages": []
+        },
+        "mediaCaptions": {}
+    },
     {
         "id": "mr-bubbles",
         "assetFolder": "MrBubbles",
@@ -177,186 +249,21 @@ const projects = [
                 "Feedback is critical, but a problem has multiple solutions",
                 "Ensure Polish on elements possessed rather than attempting to produce rushed concepts."
             ],
-            "comparison": {
-                "title": "Short Term vs Long Term Project Length",
-                "items": [
-                    {
-                        "name": "Mr. Bubbles",
-                        "image": "fas fa-circle"
-                    },
-                    {
-                        "name": "Traditional Sim",
-                        "image": "fas fa-circle"
-                    }
-                ],
-                "analysis": {
-                    "ourApproach": {
-                        "title": "Short Term Positives",
-                        "description": "Mr. Bubbles Code was Created with longevity in mind, how did this positively affect the short term?",
-                        "whatWorked": [
-                            "Easy creation of multiple characters",
-                            "Gameplay is performant",
-                            "First variation of dirt was easy to implement",
-                            "Git version control enabled collaborative audio and code development"
-                        ]
-                    },
-                    "traditionalApproach": {
-                        "title": "Short Term Negatives",
-                        "description": "Because it was a short term game, not a long term game, what negatives did this have?",
-                        "whatDidntWork": [
-                            "Further progression of dirt / dirt types was designed, not implemented",
-                            "Further item progression and tools required to clean was designed, not implemented",
-                            "Elements that WERE implemented, were not as visually polished",
-                            "Buggy math calculations",
-                            "Lack of settings integrations"
-                        ]
-                    }
-                },
-                "media": []
-            }
+            "pages": []
         },
         "mediaOrder": [
             "image:assets/MrBubbles/displayPhoto_1.png",
             "youtube:qXJDq9WIIj8",
             "image:assets/MrBubbles/displayPhoto_2.png",
             "image:assets/MrBubbles/displayPhoto_3.png"
-        ]
-    },
-    {
-        "id": "strictly-human",
-        "assetFolder": "StrictlyHumanAffair",
-        "type": "gamejam",
-        "duration": "72 Hours",
-        "youtubeUrls": [],
-        "title": "A Strictly Human Affair",
-        "description": "A first person, social puzzle game. Explore the train, collect items, and learn the secrets each passenger holds. ",
-        "image": "fas fa-gamepad",
-        "thumbnailUrl": null,
-        "tech": [
-            "Unity",
-            "C#",
-            "FL Studio"
         ],
-        "featured": false,
-        "detailsEnabled": false,
-        "media": [],
-        "overview": {
-            "description": "When the train conductor is found brutally murdered, Sheriff Horace; trapped in a rolling prison alongside six other passengers, must reveal the monstrous killer from behind their mask.",
-            "features": [
-                "Narrative"
-            ],
-            "platforms": [
-                "Windows",
-                "Linux",
-                "Mac"
-            ],
-            "status": "Released",
-            "role": "Developer",
-            "storeUrl": "https://ratth3cat.itch.io/a-strictly-human-affair"
-        },
-        "details": {
-            "challenges": [],
-            "solutions": [],
-            "lessons": [],
-            "comparison": {
-                "title": "",
-                "items": [
-                    {
-                        "name": "",
-                        "image": "fas fa-circle"
-                    },
-                    {
-                        "name": "",
-                        "image": "fas fa-circle"
-                    }
-                ],
-                "analysis": {
-                    "ourApproach": {
-                        "title": "",
-                        "description": "",
-                        "whatWorked": []
-                    },
-                    "traditionalApproach": {
-                        "title": "",
-                        "description": "",
-                        "whatDidntWork": []
-                    }
-                },
-                "media": []
-            }
-        }
-    },
-    {
-        "id": "from-the-ashes",
-        "assetFolder": "FromTheAshes",
-        "type": "gamejam",
-        "duration": "1 Week",
-        "youtubeUrls": [],
-        "title": "From The Ashes",
-        "description": "A Multiplayer Horror, scour the area, and return safely.",
-        "image": "fas fa-gamepad",
-        "thumbnailUrl": null,
-        "tech": [
-            "Unity",
-            "C#"
-        ],
-        "featured": false,
-        "detailsEnabled": false,
-        "media": [],
-        "overview": {
-            "description": "A world is over-run by a new type of creatures, known as Phons. They are spreading wildly. The military sends troops to ground zero, to collect a sample.\n\n\nEach player must enter ground zero. Find the sample, and get out. However it won't be that simple.",
-            "features": [
-                "CO-OP",
-                "Voice Chat"
-            ],
-            "platforms": [
-                "Windows",
-                "Mac",
-                "Linux"
-            ],
-            "status": "Released",
-            "role": "Lead Dev",
-            "storeUrl": "https://dev-stynt.itch.io/from-the-ashes-they-rise"
-        },
-        "details": {
-            "challenges": [],
-            "solutions": [],
-            "lessons": [],
-            "comparison": {
-                "title": "",
-                "items": [
-                    {
-                        "name": "",
-                        "image": "fas fa-circle"
-                    },
-                    {
-                        "name": "",
-                        "image": "fas fa-circle"
-                    }
-                ],
-                "analysis": {
-                    "ourApproach": {
-                        "title": "",
-                        "description": "",
-                        "whatWorked": []
-                    },
-                    "traditionalApproach": {
-                        "title": "",
-                        "description": "",
-                        "whatDidntWork": []
-                    }
-                },
-                "media": []
-            }
-        }
+        "mediaCaptions": {}
     },
     {
         "id": "displaced",
         "assetFolder": "Displaced",
         "type": "project",
-        "youtubeUrls": [
-            "https://www.youtube.com/watch?v=vBqQRW3jLbg"
-        ],
+        "youtubeUrls": [],
         "detailsEnabled": true,
         "title": "Displaced",
         "description": "A First Person Multiplayer FPS, fight across two dimensions to conquer reality, and survive the oncoming apocalypse.",
@@ -374,7 +281,7 @@ const projects = [
         "featured": false,
         "media": [],
         "overview": {
-            "description": "Displaced takes place upon two realities, fighting for control. Players must switch between these realities mid fight to obtain the best positioning advantage.",
+            "description": "Displaced takes place upon two realities, fighting for control. Players must switch between these realities mid fight to obtain the best positioning advantage. \n\nDisplaced offers a unique team shooter dynamic where players have the ability to better navigate the map. The ability to dimension swap, prevents alleviate the feeling of getting fully stuck in tight narrow areas or getting camped. ",
             "features": [
                 "Multiplayer, First Person Shooter",
                 "Team Based, Hero Shooter",
@@ -386,80 +293,147 @@ const projects = [
                 "Steam"
             ],
             "status": "In Development",
-            "role": "Sole Developer",
+            "role": "Lead Developer",
             "storeUrl": null
         },
         "details": {
-            "challenges": [
-                "Networking direction. I.e. to use Peer to Peer or Servers",
-                "Creating Depth of Systems or Depth of Progression. I.e. Cosmetics",
-                "Large Scope while being a solo developer"
-            ],
-            "solutions": [
-                "After attempting both, peer to peer offered the best solution to demonstrate the desired gameplay.",
-                "A depth of system, such as improved platform/control support, along with better character design",
-                "Develop what I can, while hiring freelancers for elements in which I lack."
-            ],
-            "lessons": [
-                "Playtest, Playtest, Playtest!",
-                "Failure does not exist, just get up, and try again.",
-                "Sometimes it is ok to pivot, once you spend the time to identify if what you are doing is the right play."
-            ],
-            "comparison": {
-                "title": "Displaced vs Traditional Survival Games",
-                "items": [
-                    {
-                        "name": "Displaced",
-                        "image": "fas fa-circle"
-                    },
-                    {
-                        "name": "Traditional Survival",
-                        "image": "fas fa-circle"
-                    }
-                ],
-                "analysis": {
-                    "ourApproach": {
-                        "title": "Version 4",
-                        "description": "The lessons learned both for this game, and as a developer.",
-                        "whatWorked": [
-                            "Systems are better when they are deep, rather than when they are wide and shallow",
-                            "A good foundation, even when prototyping, means the future is expandable",
-                            "Problems, similar to projects, have a scope and must be solved accordingly."
-                        ]
-                    },
-                    "traditionalApproach": {
-                        "title": "Version 1 - 3",
-                        "description": "The issues and problems overcome to get to where it is today.",
-                        "whatDidntWork": [
-                            "Lacked focus on the core concept, including ranks and cosmetics.",
-                            "Character abilities and ultimates were shallow use cases.",
-                            "Rushed implementation of fundamentals (ie character movement)",
-                            "Extreme amounts of Tech Debt buildup."
-                        ]
-                    }
+            "challenges": [],
+            "solutions": [],
+            "lessons": [],
+            "pages": [
+                {
+                    "title": "Designing the Maps: The Prototype",
+                    "body": "The following is taken throughout the development of Displaced. Seen will be versions of the map \"Idona\". \n\nIdona originally was concepted as a map that used the traditional three lane design, however vertically. Throughout it's original concepting phase we added elements such as elevators and created tunnels in order to facilitate the pathing of players. \n\nWe noted it was quite fun, however there were key issues, especially in regards to the tunnels. They were long funnels, that didn't have any way of breaking up line of sight. They did help player's cross the point easier, however they fell into the trap of what Displaced was trying to avoid (one sided chokes). \n\nAfter our first couple prototypes internally, we produced Version 1 of the map (seen later).",
+                    "images": [
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubzocym92kd.png",
+                            "caption": "Top Down"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubz403i9bxp.png",
+                            "caption": "Looking at Point"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubz4crp5hyv.png",
+                            "caption": "One of the first prototypes"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubzoen3ucix.png",
+                            "caption": "Looking at Tunnel"
+                        }
+                    ]
                 },
-                "media": []
-            }
+                {
+                    "title": "Designing the Maps: Version 1",
+                    "body": "Displaced has always been a small project, however that doesn't mean we want it sheltered. We've had the opportunity to put it in front of 50+ players ranging with all backgrounds. \n\nPlaytesting has always been a major helpful element that allows us to improve, as we are aware that we'll never be right the first time, but it's important to adapt to what's needed. \n\nIn Version 1, we stripped out the tunnel underneath. We felt this tunnel was not only not being used, but also created friction points on the exit tunnels, as the systems didn't let it feel expressive and create the moments we were targeting. It's one of the reasons we decided to create more open areas. Switching between two dimensions becomes null and void if players teleport, but remain in the exact same place that they were in previous versions, it simply ends up extending ttk without improving the experience. \n\nCommon complaints in this era unfortunately stemmed from the system creating pain points within the maps that made them the priority, and left the maps to be in limbo for a while.  One major map change was the removal of the elevator entirely. In concept it sounded cool to have this trade off for standing still to get high ground, but rather resulted in a boring and stressful element that was not that rewarding. Alternative paths proved more valuable and was thus removed. \n\nI also had time to have Version 1 peer reviewed by another developer. This was some of the most extremely helpful feedback, as there were a lot of issues. \n- The area was extremely linear. Players only had one viable exit from their spawn leading to a plethora of issues.\n- The back section felt irrelevant, and was very locked down preventing easy rotate and free flow.\n- The high grounds that littered the sections by the south side, while having interesting skill elements, it required too much cognitive load and were too inconsistent with no cover. ",
+                    "images": [
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0w2mr8osl.png",
+                            "caption": "Top Down"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubzte0vjwvz.png",
+                            "caption": "From Heaven"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubzuyvyonn7.png",
+                            "caption": "Backside Facing Point"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_mubzvcpyr6t4.png",
+                            "caption": "Front of Spawn"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc00mt5ivrs.png",
+                            "caption": "Top Down Denoted"
+                        }
+                    ]
+                },
+                {
+                    "title": "Designing the Maps: Version 2",
+                    "body": "With the removal of both the tunnel, and elevators, maps were becoming quite basic. \n\nThis was a great moment where gameplay mechanics needed a slight overhaul. This whole time players could swap dimensions once, travel anywhere unpredictably, and were \"trading\" positions with other players. This lead to a feeling where players would just miss the other one when chasing.\n\nTo solve these issues, we looked back at the inspirations, and found irregularities or items that are there in one dimension, but not in the other. This means we can create scenarios in which you can better predict where someone might appear without creating hard chokes. However, with a single charge, you never felt like you could best pick your path. \n\nThe introduction of irregularities dramatically improved the feeling of the core mechanic, and allowed for us to experiment to find the best combination of punishing those who swapped poorly, while allowing thoughtful pathing. \n\nWe also improved the pathing from a player's spawn to the main point, reverting back to the more normalized three lane design and focused more on what elevated the game without trying to break the mold. ",
+                    "images": [
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0wclfec4y.png",
+                            "caption": "Prototyping New Version"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc09iadhxjc.png",
+                            "caption": "Exiting Spawn"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc09wk9w9ou.png",
+                            "caption": "From Heaven"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc09men7rs3.png",
+                            "caption": "Backside Facing Point"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0aaczft1f.png",
+                            "caption": "Sitting In Mid"
+                        }
+                    ]
+                },
+                {
+                    "title": "Designing the Maps: Where We are Now",
+                    "body": "Idona's map design has taken on many changes throughout it's lifetime. \n\nTo say it won't see any more would be far from correct, however with each iteration it has allowed for a continuous improvement all in order to highlight the player experience that's the most entertaining rather than throwing mechanics everywhere. ",
+                    "images": [
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0yc00ege3.png",
+                            "caption": "Top Down"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0c32xwcam.png",
+                            "caption": "Exiting Spawn"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0c5gqtzmc.png",
+                            "caption": "Backside Facing Point"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc0ca6t3p9m.png",
+                            "caption": "Sitting In Mid"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc118yltu2a.png",
+                            "caption": "Facing Spawn and Tunnels"
+                        },
+                        {
+                            "path": "assets/Displaced/Breakdown/breakdown_muc127963i2z.png",
+                            "caption": "Inside the New Tunnels"
+                        }
+                    ]
+                }
+            ]
         },
-        "mediaOrder": [
-            "image:assets/Displaced/displayPhoto_1.png",
-            "youtube:vBqQRW3jLbg",
-            "image:assets/Displaced/displayPhoto_2.png",
-            "image:assets/Displaced/displayPhoto_3.png",
-            "image:assets/Displaced/displayPhoto_4.png"
-        ]
+        "mediaCaptions": {
+            "image:assets/Displaced/displayPhoto_2.png": "Backside in Version 1",
+            "image:assets/Displaced/displayPhoto_3.png": "Backside in Version 2",
+            "image:assets/Displaced/displayPhoto_4.png": "Backside in Version 3"
+        },
+        "mediaOrder": []
     }
 ];
 
 const about = {
     "bullets": [
-        "23 year old from Missoula, Montana.",
         "Bachelors - Management Information Systems",
         "Half a decade of game development experience.",
-        "Failure gives the best opportunity to learn"
+        "First Person and Multiplayer Specialist"
     ],
     "resumePath": "assets/Jason Firth Resume.pdf",
-    "headshot": "assets/JasonHeadshot.png"
+    "headshot": "assets/JasonHeadshot.png",
+    "links": [
+        {
+            "label": "Itch.Io",
+            "url": "https://dev-stynt.itch.io/"
+        },
+        {
+            "label": "LinkedIn",
+            "url": "https://www.linkedin.com/in/jason-firth-b76a7418a/"
+        }
+    ]
 };
 
 const experience = [
@@ -467,7 +441,7 @@ const experience = [
         "id": "benthic-games",
         "dateRange": "May 2025 - Present",
         "title": "Contract Developer",
-        "organization": "Benthic Studio (Self-employed)",
+        "organization": "Benthic Studio",
         "tech": [
             "Unity",
             "Substance Painter",
@@ -479,22 +453,22 @@ const experience = [
         ],
         "description": "Providing adaptable solutions to a variety of problems. From game development, custom software, media content, and webpages.",
         "bullets": [
-            "Development from a player's perspective with a business mind ",
-            "Team coordination and implementations",
-            "Adaptability and drive to learn new and challenging concepts"
+            "Redesigned the progression for a serious games client, validated through playtesting and player sentiment",
+            "Diagnosed a churn point for a client through playtest observation and analytical review, then redesigned the flow, reducing early quit rates",
+            "Identified and fixed issues in a client's web build, improving the players’ experience"
         ]
     },
     {
         "id": "ctk-livestream",
         "dateRange": "Sep 2021 - Present",
-        "title": "Live Stream IT Consultant",
-        "organization": "Christ The King Parish Missoula (Part-time)",
+        "title": "Live Stream Technician ",
+        "organization": "CTK",
         "tech": [
             "Python"
         ],
-        "description": "Revamped and maintained live streaming systems for a church targeting younger college audiences, building community connections beyond traditional demographics.",
+        "description": "Revamped and maintained live streaming systems in live production environments.",
         "bullets": [
-            "Formed communities of unique individuals through technical solutions",
+            "Problem solved technical difficulties in swift and creative ways to avoid downtime",
             "Problem-solved technical difficulties swiftly to avoid downtime",
             "Coordinated teams and communicated effectively for delivery"
         ]
@@ -502,16 +476,15 @@ const experience = [
     {
         "id": "fast-enterprises",
         "dateRange": "Jun 2024 - Aug 2024",
-        "title": "Implementation Consultant",
-        "organization": "Fast Enterprises, LLC (Internship)",
+        "title": "Implementation Consultant Intern",
+        "organization": "Fast Enterprises, LLC",
         "tech": [
             "C#"
         ],
-        "description": "Learned new systems and environments while interfacing with data and code, focusing on robust solutions for complex problems.",
+        "description": "As a designer positioned perfectly with my understanding of design, systems, and business, I can target a pain point affecting players, propose a solution, and prototype it's effectiveness with the ability to restart if and when needed. ",
         "bullets": [
-            "Developed robust solutions to complex technical problems",
-            "Conveyed technical information clearly to stakeholders",
-            "Created accessible solutions for non-technical users"
+            "Conveying Technical processes and information to a range of non-technical users. ",
+            "Designed demonstrations on new systems and workflows for clients with a varying range of technical expertise"
         ]
     }
 ];

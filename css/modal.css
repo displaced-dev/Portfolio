@@ -1,0 +1,298 @@
+/* ==========================================================================
+   Project modal: shell, Overview text and the In-Depth tab (pages).
+   Media frames, captions and the slider live in media.css.
+   ========================================================================== */
+
+/* ---------- Shell ---------- */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    margin: 2% auto;
+    overflow-y: auto;
+    border-radius: var(--radius);
+    background: #fff;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.close {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 1;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--subtle);
+    cursor: pointer;
+}
+
+    .close:hover {
+        color: var(--red);
+    }
+
+.modal-header {
+    padding: 2rem 2rem 0;
+}
+
+    .modal-header h2 {
+        margin-bottom: 1rem;
+        color: var(--ink);
+    }
+
+.modal-tabs {
+    display: flex;
+    margin: 1rem 0 0 -0.25rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.tab-btn,
+.page-btn {
+    margin-bottom: -1px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: var(--faint);
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.tab-btn {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.9rem;
+}
+
+    .tab-btn.active,
+    .tab-btn:hover,
+    .page-btn.active,
+    .page-btn:hover {
+        color: var(--ink);
+        border-bottom-color: var(--red);
+    }
+
+.modal-body {
+    padding: 2rem;
+}
+
+.tab-content {
+    display: none;
+}
+
+    .tab-content.active {
+        display: block;
+    }
+
+/* ---------- Overview text ---------- */
+.modal-description {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: var(--muted);
+    white-space: pre-line;
+}
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: var(--bg-alt);
+}
+
+.modal-info-item h4 {
+    margin-bottom: 0.3rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+
+.modal-info-item p {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #222;
+}
+
+.store-cta {
+    margin: 0 0 2rem;
+}
+
+.store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 6px;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s ease;
+}
+
+    .store-btn i {
+        font-size: 0.8em;
+    }
+
+    .store-btn:hover {
+        background: #b91c1c;
+    }
+
+    .store-btn:focus-visible {
+        outline: 2px solid var(--red);
+        outline-offset: 3px;
+    }
+
+.modal-features {
+    margin-bottom: 2rem;
+    list-style: none;
+}
+
+    .modal-features li,
+    .details-section li {
+        position: relative;
+        padding: 0.5rem 0 0.5rem 1.5rem;
+    }
+
+    .modal-features li {
+        border-bottom: 1px solid var(--line);
+    }
+
+        .modal-features li::before,
+        .details-section li::before {
+            content: '–';
+            position: absolute;
+            left: 0;
+            color: #bbb;
+        }
+
+.modal-tech-stack h4 {
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.modal-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* ---------- In-Depth tab ---------- */
+.page-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    margin-bottom: 1.75rem;
+}
+
+.page-btn {
+    padding: 0.2rem 0;
+    font-size: 0.88rem;
+}
+
+.details-page {
+    display: none;
+}
+
+    .details-page.active {
+        display: block;
+    }
+
+.details-section {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    background: var(--bg-alt);
+}
+
+    .details-section h4 {
+        margin-bottom: 0.75rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: var(--text);
+    }
+
+    .details-section ul {
+        list-style: none;
+    }
+
+    .details-section li {
+        padding-left: 1.2rem;
+        color: var(--muted);
+    }
+
+.breakdown-title {
+    margin-bottom: 0.75rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.breakdown-body {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--muted);
+    white-space: pre-line;
+}
+
+.breakdown-figure {
+    margin-top: 1.75rem;
+    text-align: center;
+}
+
+    .breakdown-figure .media-frame img {
+        max-height: none;
+    }
+
+.details-empty {
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--faint);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        margin: 5% auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-header {
+        padding: 1.5rem 1rem 0;
+    }
+
+    .modal-body {
+        padding: 1rem;
+    }
+}
