@@ -128,10 +128,10 @@ const projects = [
             "C#"
         ],
         "featured": false,
-        "detailsEnabled": true,
+        "detailsEnabled": false,
         "media": [],
         "overview": {
-            "description": "A world is over-run by a new type of creatures, known as Phons. They are spreading wildly. The military sends troops to ground zero, to collect a sample.\n\n\nEach player must enter ground zero. Find the sample, and get out. However it won't be that simple.",
+            "description": "A world is over-run by a new type of creatures, known as Phons. They are spreading wildly. The military sends troops to ground zero, to collect a sample.\n\nEach player must enter ground zero. Find the sample, and get out. However it won't be that simple. However when encountering their foe they must be careful, as it does not die, it adapts. \n\nThe Phon is designed with the ability to not die, but rather adapt to the method in which it was killed. Knock it over for a short duration before it stands up with better tools to handle melee weapons with range weapons, and ranged weapons with armoring to better cover it's weak points. ",
             "features": [
                 "CO-OP",
                 "First Person Combat"
