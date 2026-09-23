@@ -130,14 +130,14 @@ const projects = [
         "detailsEnabled": false,
         "media": [],
         "overview": {
-            "description": "The Phon is designed with the ability not to die, but rather to adapt to the method by which it was hurt. Knock it over for a short duration before it stands up with better tools in its arsenal. To handle melee weapons, it will develop ranged weapons, and to meet ranged weapons with armor.\n\n",
+            "description": "The Phon is designed with the ability not to die, but rather to adapt to the method by which it was hurt. Knock it over for a short duration before it stands up with better tools in its arsenal. To handle melee weapons, it will develop ranged weapons, and to meet ranged weapons with armor.\n\nFrom The Ashes was a personal challenge to build a multiplayer game in a week. With mixed results it helped pinpoint my weaknesses especially in AI logic. \n\n",
             "platforms": [
                 "Windows",
                 "Mac",
                 "Linux"
             ],
             "status": "Released",
-            "role": "Lead Dev",
+            "role": "Sole Developer",
             "storeUrl": "https://dev-stynt.itch.io/from-the-ashes-they-rise"
         },
         "details": {
@@ -169,14 +169,14 @@ const projects = [
         "detailsEnabled": false,
         "media": [],
         "overview": {
-            "description": "When the train conductor is found brutally murdered, Sheriff Horace; trapped in a rolling prison alongside six other passengers, must reveal the monstrous killer from behind their mask.\n\nDevelopment focused on a mix of Dialogue and Interactions players would take outside. ",
+            "description": "When the train conductor is found brutally murdered, Sheriff Horace; trapped in a rolling prison alongside six other passengers, must reveal the monstrous killer from behind their mask.\n\nDevelopment focused on a mix of Dialogue and Interactions players would take outside. Developed inside a team with the responsibilities of designing, building, and integrating the gameplay logic. ",
             "platforms": [
                 "Windows",
                 "Linux",
                 "Mac"
             ],
             "status": "Released",
-            "role": "Developer",
+            "role": "Designer and Developer",
             "storeUrl": "https://ratth3cat.itch.io/a-strictly-human-affair"
         },
         "details": {
@@ -196,9 +196,9 @@ const projects = [
         "youtubeUrls": [
             "https://youtu.be/qXJDq9WIIj8"
         ],
-        "detailsEnabled": false,
+        "detailsEnabled": true,
         "title": "Mr. Bubbles Car Wash",
-        "description": "A charming cleaning simulation game where players manage a car wash business with whimsical characters.",
+        "description": "A charming cleaning simulation game where players manage a car wash business with whimsical characters. ",
         "image": "fas fa-car",
         "thumbnailUrl": null,
         "tech": [
@@ -212,32 +212,19 @@ const projects = [
         "featured": true,
         "media": [],
         "overview": {
-            "description": "Mr. Bubbles Car Wash combines business simulation with subtle character-driven storytelling.",
+            "description": "Mr. Bubbles Car Wash combines business simulation with subtle character-driven storytelling.\n\nTasked with designing and implementing the core loop for the team.",
             "platforms": [
                 "Windows",
                 "Itch.io"
             ],
             "status": "Released",
-            "role": "Programmer, Sound Artist",
+            "role": "Designer, Developer, Music",
             "storeUrl": "https://qrypt.itch.io/mr-bubbles-car-salon"
         },
         "details": {
-            "challenges": [
-                "Creating an immersive dirt decal system",
-                "Creating engaging characters within a simple business premise",
-                "Designing satisfying progression systems that encourage long-term play",
-                "The implementation of systems designed. Code Was ready, yet implementation takes time"
-            ],
-            "solutions": [
-                "A Render Based decal Stamp and collision detection to spawn and clean dirt",
-                "Used Blender and Substance Painter to create basic car-wash environment",
-                "Designed a procedural and modular dirt generation and cleaning system"
-            ],
-            "lessons": [
-                "Don't wait until the final moment to think about how you will create a tutorial",
-                "Feedback is critical, but a problem has multiple solutions",
-                "Ensure Polish on elements possessed rather than attempting to produce rushed concepts."
-            ],
+            "challenges": [],
+            "solutions": [],
+            "lessons": [],
             "sections": []
         },
         "mediaOrder": [
@@ -279,7 +266,7 @@ const projects = [
                 "Steam"
             ],
             "status": "In Development",
-            "role": "Lead Developer",
+            "role": "Developer and Designer",
             "storeUrl": null
         },
         "details": {

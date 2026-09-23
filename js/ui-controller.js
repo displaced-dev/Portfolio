@@ -175,12 +175,9 @@ function initializeTechStack() {
     const techGrid = document.getElementById('techGrid');
     if (!techGrid) return;
 
+    // Column count follows the data so every item shares one row equally.
+    techGrid.style.setProperty('--tech-count', Math.max(techStack.length, 1));
     techGrid.innerHTML = techStack.map(createTechItem).join('');
-    techGrid.addEventListener('click', (e) => {
-        if (e.target.closest('.tech-item')) {
-            document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-        }
-    });
 }
 
 function createTechItem(tech) {
@@ -188,7 +185,7 @@ function createTechItem(tech) {
     const icon = isFontAwesome
         ? `<i class="${tech.icon}"></i>`
         : `<img src="${tech.icon}" alt="${tech.name} icon" onerror="this.nextElementSibling.hidden=false; this.remove();"><i class="fas fa-code" hidden></i>`;
-    return `<div class="tech-item">${icon}<h4>${tech.name}</h4></div>`;
+    return `<div class="tech-item" title="${tech.name}">${icon}<h4>${tech.name}</h4></div>`;
 }
 
 function tagsHtml(list) {

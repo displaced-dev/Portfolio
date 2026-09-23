@@ -3,61 +3,79 @@
    Loaded after styles.css and relies on its tokens.
    ========================================================================== */
 
-/* ---------- Tech stack ---------- */
+/* ---------- Tech stack ----------
+   One row, equal columns. Everything inside scales with the row's width
+   (container query units), so the row always fits and never overflows. */
 .tech-grid {
+    --tech-count: 9; /* overwritten from JS with the real item count */
+    container-type: inline-size;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(var(--tech-count), minmax(0, 1fr));
+    gap: 1vw;
+    gap: clamp(0.25rem, 1.2cqi, 1.25rem);
+    width: 100%;
     margin-top: 2rem;
 }
 
 .tech-item {
-    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(0.25rem, 1cqi, 0.9rem);
+    min-width: 0;
+    aspect-ratio: 1 / 1;
+    padding: clamp(0.2rem, 0.6cqi, 0.6rem);
     border: 2px solid #f0f0f0;
     border-radius: var(--radius);
     background: #fff;
     text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
 }
 
     .tech-item:hover {
-        transform: translateY(-5px);
         border-color: var(--red);
-        box-shadow: 0 8px 24px rgba(220, 38, 38, 0.15);
     }
 
     .tech-item i {
-        margin-bottom: 1rem;
-        font-size: 3rem;
+        font-size: 3vw;
+        font-size: clamp(1rem, 3.6cqi, 2.75rem);
+        line-height: 1;
         color: var(--text);
-        transition: all 0.3s ease;
     }
 
     .tech-item img {
-        width: 3rem;
-        height: 3rem;
-        margin: 0 auto 1rem;
+        width: 3vw;
+        width: clamp(1rem, 3.6cqi, 2.75rem);
+        height: auto;
+        aspect-ratio: 1 / 1;
         object-fit: contain;
         filter: grayscale(100%) contrast(0%) brightness(0.2);
-        transition: all 0.3s ease;
-    }
-
-    .tech-item:hover i {
-        color: var(--red);
-        transform: scale(1.1);
-    }
-
-    .tech-item:hover img {
-        filter: none;
-        transform: scale(1.1);
     }
 
     .tech-item h4 {
-        font-size: 1.1rem;
+        max-width: 100%;
+        font-size: 1.1vw;
+        font-size: clamp(0.6rem, 1.15cqi, 0.95rem);
         font-weight: 600;
+        line-height: 1.2;
         color: var(--text);
+        overflow-wrap: break-word;
+        hyphens: auto;
     }
+
+/* Too narrow for readable labels: show icons only (names stay as tooltips). */
+@container (max-width: 720px) {
+    .tech-item h4 {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+}
 
 /* ---------- Experience timeline ---------- */
 .timeline {
@@ -302,7 +320,6 @@
 }
 
     .contact-icon i {
-
     }
 
 .contact-info h4 {
@@ -316,7 +333,7 @@
 .contact-info p {
     font-size: 1.1rem;
     color: #e5e7eb;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
 }
 
 /* ---------- Responsive ---------- */
@@ -331,12 +348,5 @@
 
     .projects-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .tech-grid {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1rem;
     }
 }
